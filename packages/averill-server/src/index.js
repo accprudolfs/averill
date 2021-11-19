@@ -1,5 +1,15 @@
 const express = require('express')
 const cors = require('cors')
+const dotenv = require('dotenv')
+dotenv.config()
+const { DB_HOST } = process.env
+const mongoose = require('mongoose')
+// const { clearConfigCache } = require('prettier')
+
+mongoose.connect(DB_HOST, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
 
 const app = express()
 app.use(cors())
