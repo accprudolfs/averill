@@ -24,7 +24,7 @@ app.use(express.json())
 app.use('/', user.router)
 app.use('/', user.verify, test.router)
 
-const port = 3001
+const port = 3000
 app.listen({ port }, () => {
   // eslint-disable-next-line
   console.log(`🚀 Server ready at http://localhost:${port}`)
