@@ -8,9 +8,9 @@ export default function NavBar() {
   const location = useLocation()
 
   return (
-    <nav className="flex justify-between px-10 py-5">
+    <div className="flex justify-between px-10 py-5">
       <Logo />
-      <div className="flex space-x-10">
+      <nav className="flex space-x-10">
         {isLoggedIn ? (
           <>
             {location.pathname !== '/' && (
@@ -34,7 +34,7 @@ export default function NavBar() {
             )}
           </>
         )}
-      </div>
-    </nav>
+      </nav>
+    </div>
   )
 }
