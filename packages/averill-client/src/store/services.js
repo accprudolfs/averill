@@ -18,7 +18,6 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithRetry,
   refetchOnMountOrArgChange: true,
-  tagTypes: ['PROJECTS', 'KEYS'],
   endpoints: builder => ({
     signUp: builder.mutation({
       query: body => {
