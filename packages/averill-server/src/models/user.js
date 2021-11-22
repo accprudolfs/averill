@@ -1,5 +1,5 @@
 
-const { Schema, SchemaTypes, model } = require('mongoose');
+const { Schema,  model } = require('mongoose');
 
 const userSchema = Schema(
   {
@@ -17,15 +17,6 @@ const userSchema = Schema(
       default: null,
     },
 
-    owner: {
-      type: SchemaTypes.ObjectId,
-      ref: 'user',
-    },
-
-    verifyToken: {
-      type: String,
-      required: [true, 'Verify token is required'],
-    },
   },
   { versionKey: false, timestamps: true },
 );
