@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Farm.module.css'
+import Plant from '../Plant/Plant.jsx'
 
 export default function Farm(props) {
   const tiles = []
@@ -9,18 +10,20 @@ export default function Farm(props) {
     )
     if (plant) {
       tiles.push(
+        // TODO: add click and drop events to this div
         <div
           key={`tile-${i}`}
-          className={[
-            styles['farm-tile'],
-            styles[plant.watered ? 'farm-tile-watered' : 'farm-tile-unwatered'],
-          ].join(' ')}
+          className={styles[plant.watered ? 'farm-tile-watered' : 'farm-tile']}
         >
-          {plant.plant}
+          <Plant type={plant.plant} stage={2} />
         </div>,
       )
     } else {
-      tiles.push(<div className={styles['farm-tile']}>empty</div>)
+      tiles.push(
+        <div className={styles['farm-tile']}>
+          <Plant type="none" stage={0} />
+        </div>,
+      )
     }
   }
   return <div className={styles.farm}> {tiles}</div>

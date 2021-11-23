@@ -7,13 +7,13 @@
 .farm-tile {
   width: 72px;
   height: 72px;
-  border: 1px solid black;
+  background-color: #55331c;
+  border: 1px solid #6e503c;
 }
 
 .farm-tile-watered {
-  background-color: #aa4400;
-}
-
-.farm-tile-unwatered {
-  background-color: #bb8800;
+  width: 72px;
+  height: 72px;
+  background-color: #452713;
+  border: 1px solid #6e503c;
 }
