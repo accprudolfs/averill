@@ -3,7 +3,8 @@ const Plant = require('../models/shop')
 const getAllPlants = async (req, res, next) => {
   try {
     Plant.find(function (result) {
-      return res.json(result)
+      res.json(result)
+      return result // For js ling TODO
     })
   } catch (error) {}
 }
