@@ -1,13 +1,21 @@
 const express = require('express')
 const cors = require('cors')
-
 const app = express()
+const authRouter = require('./routes/api/users');
+
 app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-app.get('/test', (req, res) => {
-  res.json({ message: `hey, ho, let's go!` })
-})
+app.use('/api/users', authRouter);
 
-app.listen(3000)
+app.use((req, res) => {
+  res.status(404).json({ message: 'Not found' });
+});
+
+app.use((err, req, res, next) => {
+  const { status = 500, message = 'server error' } = err;
+res.status(status).json({ message });
+});
+
+module.exports = app;
