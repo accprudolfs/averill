@@ -11,9 +11,9 @@ export default function MyFarmView() {
           {
             plant: 'potato',
             watered: true,
+            x: 1,
+            y: 3,
           },
-          {},
-          {},
         ]}
       />
     </div>
