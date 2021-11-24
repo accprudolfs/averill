@@ -1,0 +1,89 @@
+html , body {
+    position: relative;
+    min-height: 100%;
+}
+body {
+   min-height: 100vh;
+ 
+}
+.shop-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(92, 92, 92, 1);
+    flex-direction: row;
+}
+
+.trader-area {
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+.Shop-trader-img {
+    width: 160px;
+    height: auto;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.Trader-speech-box {
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    font-style: italic;
+    background: #666666;
+}
+
+.Shop-header {
+    border-bottom: 1px solid #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.Shop-name {
+    color: #74c91b;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Money-logo {
+    height: 25px;
+    width: 35px;
+    display: inline-block;
+}
+
+.User-money {
+    font-size: 16px;
+    color: #e8da89;
+}
+
+.Shop-cell {
+    background: rgba(70, 69, 69, 1);
+    min-width: 100px;
+    padding: 10px;
+    margin: 10px;    
+    text-align: center;    
+    border-radius: 5px;  
+    cursor: pointer;
+}
+ 
+.Shop-product-img {
+    width: 85px;
+    height: 85px;
+    margin: 0 auto;
+}
+
+.Shop-product-price {
+    color: #fff;
+}
+
+.Shop-logo {
+    height: 50px;
+    width: 60px;
+    display: inline-block;
+}
