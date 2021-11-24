@@ -72,5 +72,8 @@
     ],
     "*.js": "eslint --cache --fix",
     "*.--write": "prettier --write"
+  },
+  "dependencies": {
+    "axios": "^0.24.0"
   }
 }

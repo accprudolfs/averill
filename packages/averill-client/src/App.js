@@ -12,9 +12,9 @@ export default function App() {
     <Provider store={store}>
       <Routes>
         <Route path="/" element={<AllFarmsView />} />
-        <Route path="login" element={<LoginView />} />
-        <Route path="signup" element={<SignupView />} />
-        <Route path="myfarm" element={<MyFarmView />} />
+        <Route path="/login" element={<LoginView />} />
+        <Route path="/signup" element={<SignupView />} />
+        <Route path="/myfarm" element={<MyFarmView />} />
       </Routes>
     </Provider>
   )
