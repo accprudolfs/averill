@@ -17,11 +17,12 @@ const signup = async (req, res, next) => {
   const err = new BadRequest(error.message);
       throw err;
     }
-    const { email, password } = req.body;
+    const { email, password,name } = req.body;
     const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
     const newUser = {
       email,
       password: hashPassword,
+      name,
     };
     const user = await User.findOne({ email });
     if (user) {
@@ -35,6 +36,7 @@ const signup = async (req, res, next) => {
       ResponseBody: {
         user: {
           email: email,
+          name,
     
         },
       },
@@ -52,7 +54,7 @@ const login = async (req, res, next) => {
       const err = new BadRequest(error.message);
       throw err;
     }
-    const { email, password } = req.body;
+    const { email, password,name } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
       throw new NotFound(`email ${email} not found`);
@@ -71,7 +73,7 @@ const login = async (req, res, next) => {
       token,
       user: {
         email,
-       
+       name,
       },
     });
   } catch (error) {
