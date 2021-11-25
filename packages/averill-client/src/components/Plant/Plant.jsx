@@ -1,8 +1,7 @@
 import React from 'react'
 import plants from './plants.png'
-
-const plantTypes = ['none', 'potato', 'carrot', 'apple', 'banana']
-const cellSize = 72
+import empty from './empty.png'
+import styles from './Plant.module.css'
 
 /**
  * @param type type of plant to be displayed
@@ -12,15 +11,11 @@ const cellSize = 72
 export default function Plant(props) {
   return (
     <img
-      src={plants}
+      src={empty}
       style={{
-        'object-fit': 'none',
-        'object-position': `${props.stage * cellSize * -1}px ${
-          plantTypes.indexOf(props.type) * cellSize * -1
-        }px`,
-        width: cellSize,
-        height: cellSize,
+        'background-image': `url(${plants})`,
       }}
+      className={styles[`${props.type}${props.stage ? `-${props.stage}` : ''}`]}
     ></img>
   )
 }
