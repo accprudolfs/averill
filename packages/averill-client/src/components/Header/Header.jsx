@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import Logo from './Logo.jsx'
-import NavItem from './NavItem.jsx'
+import Logo from '../Logo/Logo.jsx'
+import LogoutBtn from '../LogoutBtn/LogoutBtn.jsx'
+import NavItem from '../NavItem/NavItem.jsx'
 
 export default function NavBar() {
   const [isLoggedIn] = useState(true)
@@ -19,7 +20,7 @@ export default function NavBar() {
             {location.pathname !== '/myfarm' && (
               <NavItem title="My Farm" to="/myfarm" />
             )}
-            <button type="button">Logout</button>
+            <LogoutBtn />
           </>
         ) : (
           <>
