@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../components/Header.jsx'
 import Farm from '../components/Farm/Farm.jsx'
-import Shop from '../components/Shop/Shop.jsx'
+// import Shop from '../components/Shop/Shop.jsx'
 
 export default function MyFarmView() {
   return (
