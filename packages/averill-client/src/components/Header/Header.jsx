@@ -9,7 +9,7 @@ export default function NavBar() {
   const location = useLocation()
 
   return (
-    <div className="flex justify-between px-10 py-5">
+    <div className="flex justify-between px-10 py-5 bg-light-bg-green">
       <Logo />
       <nav className="flex space-x-10">
         {isLoggedIn ? (
