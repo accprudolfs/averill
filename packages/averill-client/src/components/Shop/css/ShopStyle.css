@@ -1,0 +1,199 @@
+/* TO DO BAG WITH FIELD GREED */
+
+@font-face {
+font-family: Estonia;
+src: url('Fonts/Estonia-Regular.ttf');
+}
+
+.shop-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(92, 92, 92, 1);
+    flex-direction: row;
+    max-height: 290px;
+}
+
+.trader-area {
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+.Shop-trader-img {
+    width: 130px;
+    height: auto;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+@media only screen and (max-width: 780px) {
+    .Shop-trader-img  {
+        width: auto;
+        max-height: 150px;
+    }
+}
+
+.Trader-speech-box {
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    font-style: italic;
+    background: #666666;
+}
+
+.Shop-header {
+    align-items: center;
+    border-bottom: 1px solid #fff;
+    padding: 5px;
+    text-align: center;
+}
+
+.Shop-name {
+    color: #74c91b;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Estonia', cursive;
+}
+
+@media only screen and (max-width: 800px) {
+    .Shop-name  {
+      
+        font-size: 3vw;
+    }
+}
+.product-wrapper {
+    padding: 20px 15%;
+    align-items: center;
+    justify-content: center;
+}
+
+.moner-wrapper {
+    padding-right: 10px ;
+}
+ 
+
+.Money-logo {
+    height: auto;
+    width: 30px;
+    display: inline-block;
+}
+
+@media only screen and (max-width: 1200px) {
+    .Money-logo   {
+        height: auto;
+        width: 28px;
+    }
+}
+
+.User-money {
+    font-size: 16px;
+    color: #e8da89;
+}
+
+.Shop-cell {
+    background: rgba(70, 69, 69, 1);
+    padding: 10px; 
+    display: none;
+    text-align: center;    
+    border-radius: 5px;  
+    cursor: pointer;
+    flex: 0 0 25%;
+    border: 1px solid #c5ad9d;
+}
+
+.Shop-cell:nth-child(-n+4) {
+    display: block;
+}
+
+@media only screen and (max-width: 1000px) {
+    .Shop-cell:nth-of-type(n) {
+        display: none;
+        flex: 0 0 40%;
+    }
+    
+    .Shop-cell:nth-of-type(1) {
+        display: block;
+    }
+    .Shop-cell:nth-of-type(2) {
+        display: block;
+
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .Shop-cell:nth-of-type(n) {
+        display: none;
+        flex: 0 0 80%;
+    }
+
+    .Shop-cell:nth-of-type(1) {
+        display: block;
+    }
+    
+} 
+ 
+.Shop-product-img {
+    width: 85px;
+    height: 85px;
+    margin: 0 auto;
+}
+
+.Shop-product-price {
+    color: #fff;
+}
+
+.Shop-logo {
+    height: auto;
+    width: 40px;
+    display: inline-block;
+}
+@media only screen and (max-width: 1200px) {
+    .Shop-logo    {
+        height: auto;
+        width: 28px;
+    }
+}
+
+/* Fading animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.2s;
+    animation-name: fade;
+    animation-duration: 1.2s;
+    animation-fill-mode: forwards;
+  }
+  
+  @-webkit-keyframes fade {
+    from {opacity: 0} 
+    to {opacity: 1}
+  }
+  
+  @keyframes fade {
+    from {opacity: 0} 
+    to {opacity: 1}
+  }
+
+  .Chevrons {
+    padding: 5px;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+  }
+
+  .shop-buy-btn {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 3px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }

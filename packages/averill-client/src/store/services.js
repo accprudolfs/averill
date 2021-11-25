@@ -1,7 +1,7 @@
-import { createApi, fetchBaseQuery,retry } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:8080/api/users/',
+  baseUrl: 'http://localhost:8080/',
   prepareHeaders: (headers, { getState }) => {
     const token = getState().user.token
     if (token) {
@@ -38,7 +38,10 @@ export const api = createApi({
         }
       },
     }),
+    getAllPlants: builder.query({
+      query: () => 'api/shop/getPlants',
+    }),
   }),
 })
 
-export const { useSignUpMutation, useLoginMutation } = api
+export const { useSignUpMutation, useLoginMutation, useGetAllPlantsQuery } = api
