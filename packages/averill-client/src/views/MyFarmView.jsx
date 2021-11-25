@@ -24,7 +24,6 @@ export default function MyFarmView() {
             },
           ]}
         />
-        <Shop />
       </div>
     </div>
   )
