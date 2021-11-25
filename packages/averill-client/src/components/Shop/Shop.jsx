@@ -90,7 +90,7 @@ function ShopComponent() {
                 </div>
               )
             })}
-            <div className="Shop-cell" title="Drag And Drop"></div>
+            {/* FOR TEST <div className="Shop-cell" title="Drag And Drop"></div> */}
           </div>
           <div className="Chevrons" onClick={() => Shownext()}>
             <img src="/images/ShopImg/right.png" alt="" />
