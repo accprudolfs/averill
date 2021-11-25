@@ -10,9 +10,9 @@ export default function NavBar() {
   const location = useLocation()
 
   return (
-    <div className="flex justify-between px-10 py-5 bg-light-bg-green">
+    <div className="flex justify-between items-center px-10 bg-light-bg-green">
       <Logo />
-      <nav className="flex space-x-10">
+      <nav className="flex h-16 space-x-10">
         {isLoggedIn ? (
           <>
             {location.pathname !== '/' && (

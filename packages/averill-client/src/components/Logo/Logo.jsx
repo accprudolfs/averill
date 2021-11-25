@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 export default function Logo() {
   return (
     <>
-      <Link to="/">Logo here</Link>
+      <Link to="/" className="hover:opacity-50 focus:opacity-50">
+        Logo here
+      </Link>
     </>
   )
 }
