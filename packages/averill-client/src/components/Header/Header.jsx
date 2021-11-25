@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import Logo from '../Logo/Logo.jsx'
 import LogoutBtn from '../LogoutBtn/LogoutBtn.jsx'
 import NavItem from '../NavItem/NavItem.jsx'
 
 export default function NavBar() {
-  const [isLoggedIn] = useState(true)
+  const { token: isLoggedIn } = useSelector(state => state.user)
   const location = useLocation()
 
   return (
