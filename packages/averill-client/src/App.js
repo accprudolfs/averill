@@ -10,7 +10,9 @@ import MyFarmView from './views/MyFarmView.jsx'
 export default function App() {
   return (
     <Provider store={store}>
+  
       <Routes>
+        <Route path="/" element={<Test />} />
         <Route path="/" element={<AllFarmsView />} />
         <Route path="login" element={<LoginView />} />
         <Route path="signup" element={<SignupView />} />
