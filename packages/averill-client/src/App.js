@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
@@ -6,6 +7,7 @@ import AllFarmsView from './views/AllFarmsView.jsx'
 import LoginView from './views/LoginView.jsx'
 import SignupView from './views/SignupView.jsx'
 import MyFarmView from './views/MyFarmView.jsx'
+import './main.css'
 
 export default function App() {
   return (

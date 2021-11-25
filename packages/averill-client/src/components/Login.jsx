@@ -1,10 +1,10 @@
-import { useEffect, useState, React } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import '../main.css'
 
 export default function Login() {
-  const [user, setUser] = useState({
-    name: '',
-  })
+  const [user, setUser] = useState({})
+  // const [isLogged, setIsLogged] = useState(false)
   const initialValues = { username: '', email: '', password: '' }
   const [formValues, setFormValues] = useState(initialValues)
   const [formErrors, setFormErrors] = useState({})
@@ -34,9 +34,7 @@ export default function Login() {
 
   const getUser = async () => {
     try {
-      const response = await axios.get(
-        'https://jsonplaceholder.typicode.com/users/1',
-      )
+      const response = await axios.post('http://localhost:8080/api/users/login')
       console.log(response.data)
       return response.data.name
     } catch (error) {
