@@ -1,19 +1,16 @@
 .farm {
   display: inline-grid;
-  grid-template-columns: repeat(8, auto);
-  grid-template-rows: repeat(8, auto);
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  margin-bottom: 300px;
 }
 
 .farm-tile {
-  width: 72px;
-  height: 72px;
   background-color: #55331c;
   border: 1px solid #6e503c;
 }
 
 .farm-tile-watered {
-  width: 72px;
-  height: 72px;
   background-color: #452713;
   border: 1px solid #6e503c;
 }
