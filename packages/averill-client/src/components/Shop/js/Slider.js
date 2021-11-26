@@ -5,7 +5,7 @@
 // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-
+// DO NOT REPEAT YOURSELF HEELLOOO
 let indexzz = 1
 let oldIndex = 1
 
@@ -56,16 +56,35 @@ export function Shownext() {
 }
 
 export function ShowPrew() {
-  const count = document.getElementsByClassName('Shop-cell')
-  const total = count.length
-  const slides = document.getElementsByClassName('Shop-cell')
-  slides[indexzz].style.display = 'none'
-  indexzz--
-  if (indexzz < 0) {
-    indexzz = total - 1
+  let howMany = 4
+  if (document.body.offsetWidth < 1000) {
+    howMany = 2
   }
-  slides[indexzz].style.display = 'block'
-  slides[indexzz].classList.add('fade')
+
+  if (document.body.offsetWidth < 600) {
+    howMany = 1
+  }
+
+  const slides = document.getElementsByClassName('Shop-cell')
+  const total = slides.length
+  indexzz = indexzz - howMany
+  if (indexzz < 1) {
+    indexzz = total
+  }
+
+  for (let i = 1; i <= total; i++) {
+    document.querySelector(`.Shop-cell:nth-child(${i})`).style.display = 'none'
+  }
+
+  for (let i = 0; i < howMany; i++) {
+    let vv = indexzz - i
+    if (indexzz < 1) {
+      vv = total
+    }
+    document.querySelector(`.Shop-cell:nth-child(${vv})`).style.display =
+      'block'
+    document.querySelector(`.Shop-cell:nth-child(${vv})`).style.opacity = '1'
+  }
 }
 
 export function onResize() {

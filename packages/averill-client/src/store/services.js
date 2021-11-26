@@ -23,7 +23,7 @@ export const api = createApi({
     signUp: builder.mutation({
       query: body => {
         return {
-          url: 'signup',
+          url: 'api/users/signup',
           method: 'POST',
           body,
         }
@@ -32,16 +32,23 @@ export const api = createApi({
     login: builder.mutation({
       query: body => {
         return {
-          url: 'login',
+          url: 'api/users/login',
           method: 'POST',
           body,
         }
       },
     }),
-    getAllPlants: builder.query({
-      query: () => 'api/shop/getPlants',
+    getAllPlants: builder.mutation({
+      query: body => {
+        return {
+          url: 'api/shop/getPlants',
+          method: 'POST',
+          body,
+        }
+      },
     }),
   }),
 })
 
-export const { useSignUpMutation, useLoginMutation, useGetAllPlantsQuery } = api
+export const { useSignUpMutation, useLoginMutation, useGetAllPlantsMutation } =
+  api

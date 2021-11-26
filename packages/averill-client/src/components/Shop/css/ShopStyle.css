@@ -143,6 +143,13 @@ src: url('Fonts/Estonia-Regular.ttf');
     margin: 0 auto;
 }
 
+@media only screen and (max-width: 600px) {
+    .Shop-product-img    {
+        width: 60px;
+        height: 60px;
+    }
+}
+
 .Shop-product-price {
     color: #fff;
 }

@@ -1,14 +1,8 @@
-// import React, { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import './css/ShopStyle.css'
 import { api } from '../../store/services'
 import { Shownext, ShowPrew, onResize } from './js/Slider'
-import React from 'react'
-// ON DRAG
-function drag(ev) {
-  ev.dataTransfer.effectAllowed = 'copy'
-  ev.dataTransfer.setData('text', ev.target.id)
-}
 
 function buyPlant(plantId) {
   alert(`Plant Id is ${plantId}`)
@@ -16,9 +10,13 @@ function buyPlant(plantId) {
 
 function ShopComponent() {
   // Variables
-  api.useGetAllPlantsQuery()
+  const [createPost, { isLoading }] = api.useGetAllPlantsMutation()
+  useEffect(() => {
+    createPost()
+  }, [])
   const AllPlants = useSelector(state => state.shop.AllPlants)
   const money = useSelector(state => state.shop.money)
+
   // TO DO Slider on Resize
   onResize()
   return (
@@ -26,13 +24,9 @@ function ShopComponent() {
       {/* Trader Area */}
       <div className="trader-area">
         <div className="TalkBox animate-bounce font-bold text-center">
-          HELLO
+          HELLO {isLoading}
         </div>
-        <img
-          className="Shop-trader-img"
-          src="/images/ShopImg/trader.png"
-          draggable="false"
-        />
+        <img className="Shop-trader-img" src="/images/ShopImg/trader.png" />
         <div className="Trader-speech-box"> Joney </div>
       </div>
 
@@ -48,7 +42,6 @@ function ShopComponent() {
               className="Money-logo"
               src="/images/ShopImg/moneyIcon.png"
               alt=""
-              draggable="false"
             />
             <span className="User-money"> {money} $ </span>
           </div>
@@ -63,29 +56,23 @@ function ShopComponent() {
             className="flex flex-wrap flex-1 wra"
             style={{ justifyContent: 'center' }}
           >
-            {AllPlants.map((testObj, index) => {
+            {AllPlants.map((plant, index) => {
               return (
-                <div className="Shop-cell" key={index} title="Drag And Drop">
+                <div className="Shop-cell" key={index}>
                   <div>
                     <img
                       className="Shop-product-img"
-                      id={index}
-                      src={testObj.img}
-                      draggable="true"
+                      src={plant.img}
                       alt=""
-                      onDragStart={e => {
-                        drag(e)
-                      }}
-                      data-price={testObj.price}
+                      data-price={plant.price}
                     />
                   </div>
-                  <p className="Shop-product-price"> {testObj.price} $ </p>
+                  <p className="Shop-product-price"> {plant.price} $ </p>
                   <button
                     className="shop-buy-btn"
-                    onClick={() => buyPlant(testObj.id)}
+                    onClick={() => buyPlant(plant.id)}
                   >
-                    {' '}
-                    BUY{' '}
+                    BUY
                   </button>
                 </div>
               )
