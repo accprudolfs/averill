@@ -24,7 +24,7 @@ function ShopComponent() {
       {/* Trader Area */}
       <div className="trader-area">
         <div className="TalkBox animate-bounce font-bold text-center">
-          HELLO {isLoading}
+          HELLO
         </div>
         <img className="Shop-trader-img" src="/images/ShopImg/trader.png" />
         <div className="Trader-speech-box"> Joney </div>
@@ -52,6 +52,7 @@ function ShopComponent() {
           <div onClick={() => ShowPrew()}>
             <img className="Chevrons" src="/images/ShopImg/left.png" alt="" />
           </div>
+          {isLoading}
           <div
             className="flex flex-wrap flex-1 wra"
             style={{ justifyContent: 'center' }}
