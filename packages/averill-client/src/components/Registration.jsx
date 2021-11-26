@@ -20,7 +20,7 @@ export default function Registration() {
   const handleSubmit = async e => {
     e.preventDefault()
     setFormErrors(validate(formValues))
-    if (formErrors.length === 0) {
+    if (Object.keys(formErrors).length === 0) {
       try {
         const status = await createUser()
         if (status === 'success') {
@@ -44,7 +44,6 @@ export default function Registration() {
         'http://localhost:8080/api/users/signup',
         payload,
       )
-
       return response.data.status
     } catch (error) {
       console.error(error)
@@ -54,7 +53,6 @@ export default function Registration() {
   useEffect(() => {
     /* eslint-disable */
     if (isSubmit) {
-      console.log('useEffect fired')
       setFormValues({
         name: '',
         email: '',
@@ -77,8 +75,8 @@ export default function Registration() {
     }
     if (!values.password) {
       errors.password = 'Password is requared'
-    } else if (values.password.length < 4) {
-      errors.password = 'Password most be more then 4 characters'
+    } else if (values.password.length < 5) {
+      errors.password = 'Password most be more then 5 characters'
     } else if (values.password.length > 20) {
       errors.password = 'Password cannot exeed more then 20 characters'
     }
@@ -93,7 +91,6 @@ export default function Registration() {
         {Object.keys(formErrors).length === 0 && isSubmit ? (
           <div className="message success" className="m-8">
             <p>Registration is successfull</p>
-            {/* <p>Welcome {user.name}</p> */}
           </div>
         ) : null}
 
@@ -107,20 +104,18 @@ export default function Registration() {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="email"
                 type="text"
-                type="text"
                 name="name"
-                placeholder="Username"
+                placeholder="Name"
                 value={formValues.name}
                 onChange={handleChange}
               />
             </div>
-            <p> {formErrors.username} </p>
+            <p> {formErrors.name} </p>
             <div className="field" className="m-6">
               <label>Email</label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="email"
-                type="text"
                 type="email"
                 name="email"
                 placeholder="Email"
@@ -134,7 +129,6 @@ export default function Registration() {
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="email"
-                type="text"
                 type="password"
                 name="password"
                 placeholder="Password"
@@ -147,8 +141,7 @@ export default function Registration() {
               <label>Repeate your Password</label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="email"
-                type="text"
+                id="repeatPassword"
                 type="password"
                 name="repeatPassword"
                 placeholder="RepeatPassword"

@@ -3,12 +3,13 @@ import axios from 'axios'
 import '../main.css'
 
 export default function Login() {
-  const [user, setUser] = useState({})
-  // const [isLogged, setIsLogged] = useState(false)
-  const initialValues = { username: '', email: '', password: '' }
-  const [formValues, setFormValues] = useState(initialValues)
+  const [isLoggedIn, setisLoggedIn] = useState(false)
+  const [formValues, setFormValues] = useState({
+    name: '',
+    email: '',
+    password: '',
+  })
   const [formErrors, setFormErrors] = useState({})
-  const [isSubmit, setIsSubmit] = useState(false)
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -18,40 +19,52 @@ export default function Login() {
   const handleSubmit = async e => {
     e.preventDefault()
     setFormErrors(validate(formValues))
-    setIsSubmit(true)
-    try {
-      const username = await getUser()
-      const user = {
-        name: username,
+    if (Object.keys(formErrors).length === 0) {
+      try {
+        const status = await login()
+        if (status === 'success') {
+          setisLoggedIn(true)
+        }
+      } catch (error) {
+        /* eslint-disable */
+        console.error(error)
       }
-
-      setUser(user)
-    } catch (error) {
-      /* eslint-disable */
-      console.error(error)
     }
   }
 
-  const getUser = async () => {
+  const login = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/api/users/login')
-      console.log(response.data)
-      return response.data.name
+      const payload = {
+        name: formValues.name,
+        email: formValues.email,
+        password: formValues.password,
+      }
+      const response = await axios.post(
+        'http://localhost:8080/api/users/login',
+        payload,
+      )
+      return response.data.status
     } catch (error) {
       console.error(error)
     }
   }
 
   useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    /* eslint-disable */
+    if (isLoggedIn) {
+      setFormValues({
+        name: '',
+        email: '',
+        password: '',
+      })
     }
-  }, [formErrors])
+  }, [isLoggedIn])
 
   const validate = values => {
     const errors = {}
     const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i
-    if (!values.username) {
-      errors.username = 'Username is requared'
+    if (!values.name) {
+      errors.name = 'Username is requared'
     }
     if (!values.email) {
       errors.email = 'Email is requared'
@@ -60,8 +73,8 @@ export default function Login() {
     }
     if (!values.password) {
       errors.password = 'Password is requared'
-    } else if (values.password.length < 4) {
-      errors.password = 'Password most be more then 4 characters'
+    } else if (values.password.length < 5) {
+      errors.password = 'Password most be more then 5 characters'
     } else if (values.password.length > 20) {
       errors.password = 'Password cannot exeed more then 20 characters'
     }
@@ -70,10 +83,9 @@ export default function Login() {
 
   return (
     <div className="container">
-      {Object.keys(formErrors).length === 0 && isSubmit ? (
+      {Object.keys(formErrors).length === 0 && isLoggedIn ? (
         <div className="message success">
           <p>Login is successfull</p>
-          <p>Welcome {user.name}</p>
         </div>
       ) : null}
 
@@ -85,13 +97,13 @@ export default function Login() {
             <label>Username</label>
             <input
               type="text"
-              name="username"
+              name="name"
               placeholder="Username"
-              values={formValues.username}
+              values={formValues.name}
               onChange={handleChange}
             />
           </div>
-          <p> {formErrors.username} </p>
+          <p> {formErrors.name} </p>
           <div className="field">
             <label>Email</label>
             <input
