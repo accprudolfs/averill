@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { paths } from '../../router/routes'
 import Logo from '../Logo/Logo.jsx'
 import LogoutBtn from '../LogoutBtn/LogoutBtn.jsx'
 import NavItem from '../NavItem/NavItem.jsx'
@@ -10,14 +11,14 @@ export default function NavBar() {
   const location = useLocation()
 
   const loggedInNavItems = [
-    { title: 'Explore Farms', path: '/' },
-    { title: 'My Farm', path: '/myfarm' },
+    { title: 'Explore Farms', path: paths.home },
+    { title: 'My Farm', path: paths.myFarm },
   ]
 
   const loggedOutNavItems = [
-    { title: 'Login', path: '/login' },
-    { title: 'Sign Up', path: '/signup' },
-    { title: 'Explore Farms', path: '/' },
+    { title: 'Login', path: paths.login },
+    { title: 'Sign Up', path: paths.signup },
+    { title: 'Explore Farms', path: paths.home },
   ]
 
   return (
