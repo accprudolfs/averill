@@ -1,17 +1,17 @@
 
 const { Conflict, NotFound, BadRequest } = require('http-errors');
-const Farm  = require('../models/farm');
+const Farm = require('../models/farm');
 
 const createNewFarm = async (req, res, next) => {
 
   try {
       const { name } = req.body;
-      const { id}=req.user
+      const { _id}=req.user
       const newfarm = {
           name,
-          owner: id,
+          owner: _id,
       }
-      const isExist = await Farm.findOne({id,name});
+      const isExist = await Farm.findOne({_id,name});
          if (isExist) {
       throw new Conflict('already exist');
     }
@@ -29,8 +29,29 @@ const createNewFarm = async (req, res, next) => {
     next(error);
   }
 };
+const getAllUsersFarms = async (req, res, next) => {
+
+  try {
+     
+      const { _id}=req.user
+ 
+      const allUsersFarms = await Farm.find({ owner: _id});
+    res.status(201).json({
+      status: 'success',
+      code: 201,
+      ResponseBody: {
+   
+          allUsersFarms,
+       
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
-  createNewFarm,
+    createNewFarm,
+    getAllUsersFarms,
 
 };

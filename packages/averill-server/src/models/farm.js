@@ -32,6 +32,6 @@ const Farm = model('farm', farmSchema);
 
 module.exports = Farm;
 
-// получить все фермы юзера (названия)
-// создать ферму
-// получить ферму по айди
+// get all users farms
+// add farm
+// get farm by id
