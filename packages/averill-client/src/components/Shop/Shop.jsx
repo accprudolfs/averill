@@ -1,91 +1,88 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchPlants } from '../../store/shopReducer'
-import './ShopStyle.css'
+import { useSelector } from 'react-redux'
+import './css/ShopStyle.css'
+import { api } from '../../store/services'
+import { Shownext, ShowPrew, onResize } from './js/Slider'
 
-// ON DRAG
-function drag(ev) {
-  ev.dataTransfer.effectAllowed = 'copy'
-  ev.dataTransfer.setData('text', ev.target.id)
+function buyPlant(plantId) {
+  alert(`Plant Id is ${plantId}`)
 }
 
 function ShopComponent() {
   // Variables
-  const AllPlants = useSelector(state => state.MyTestReducer.AllPlants)
-
-  const money = useSelector(state => state.MyTestReducer.money)
-  const NotEnoughtMoney = useSelector(
-    state => state.MyTestReducer.NotEnoughtMoney,
-  )
-  const TraderSpeech = useSelector(state => state.MyTestReducer.TraderSpeech)
-
-  // On Load  - Get All Plants for shop , and user information
-  const dispatch = useDispatch()
+  const [createPost, { isLoading }] = api.useGetAllPlantsMutation()
   useEffect(() => {
-    dispatch(fetchPlants())
-  }, [dispatch])
+    createPost()
+  }, [])
+  const AllPlants = useSelector(state => state.shop.AllPlants)
+  const money = useSelector(state => state.shop.money)
 
+  // TO DO Slider on Resize
+  onResize()
   return (
     <div className="shop-wrapper flex">
       {/* Trader Area */}
       <div className="trader-area">
-        <div
-          className="TalkBox animate-bounce font-bold text-center"
-          style={{
-            opacity: TraderSpeech ? '1' : '0',
-            color: NotEnoughtMoney ? 'red' : 'rgb(116, 201, 27)',
-          }}
-        >
-          {TraderSpeech}
+        <div className="TalkBox animate-bounce font-bold text-center">
+          HELLO
         </div>
-        <img
-          className="Shop-trader-img"
-          src="/images/ShopImg/trader.png"
-          draggable="false"
-        />
+        <img className="Shop-trader-img" src="/images/ShopImg/trader.png" />
         <div className="Trader-speech-box"> Joney </div>
       </div>
 
       {/* Shop Header */}
-      <div className="flex-1">
+      <div className="flex-1 , Shop-right-bar">
         <div className="flex , Shop-header">
           <h1 className="flex-1 , Shop-name">
             <img className="Shop-logo" src="/images/ShopImg/ShopLogo.png" />
-            THE BEST SHOP
+            HAPPY FARMER
           </h1>
-          <div style={{ paddingRight: 20 }}>
+          <div className="moner-wrapper">
             <img
               className="Money-logo"
               src="/images/ShopImg/moneyIcon.png"
               alt=""
-              draggable="false"
             />
             <span className="User-money"> {money} $ </span>
           </div>
         </div>
 
         {/* Shop products and prices */}
-        <div className="flex">
-          {AllPlants.map((testObj, index) => {
-            return (
-              <div className="Shop-cell" key={index} title="Drag And Drop">
-                <div>
-                  <img
-                    className="Shop-product-img"
-                    id={index}
-                    src={testObj.img}
-                    draggable="true"
-                    alt=""
-                    onDragStart={e => {
-                      drag(e)
-                    }}
-                    data-price={testObj.price}
-                  />
+        <div className="flex product-wrapper">
+          <div onClick={() => ShowPrew()}>
+            <img className="Chevrons" src="/images/ShopImg/left.png" alt="" />
+          </div>
+          {isLoading}
+          <div
+            className="flex flex-wrap flex-1 wra"
+            style={{ justifyContent: 'center' }}
+          >
+            {AllPlants.map((plant, index) => {
+              return (
+                <div className="Shop-cell" key={index}>
+                  <div>
+                    <img
+                      className="Shop-product-img"
+                      src={plant.img}
+                      alt=""
+                      data-price={plant.price}
+                    />
+                  </div>
+                  <p className="Shop-product-price"> {plant.price} $ </p>
+                  <button
+                    className="shop-buy-btn"
+                    onClick={() => buyPlant(plant.id)}
+                  >
+                    BUY
+                  </button>
                 </div>
-                <p className="Shop-product-price"> {testObj.price} $ </p>
-              </div>
-            )
-          })}
+              )
+            })}
+            {/* FOR TEST <div className="Shop-cell" title="Drag And Drop"></div> */}
+          </div>
+          <div className="Chevrons" onClick={() => Shownext()}>
+            <img src="/images/ShopImg/right.png" alt="" />
+          </div>
         </div>
       </div>
     </div>

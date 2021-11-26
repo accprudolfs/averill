@@ -2,6 +2,7 @@
   display: inline-grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
+  margin-bottom: 300px;
 }
 
 .farm-tile {
