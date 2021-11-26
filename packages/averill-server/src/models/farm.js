@@ -6,11 +6,13 @@ const vegetableSchema = new Schema({
     created  : Date,
     watered: Date,
     harvesrs: Number,
-    harvestedAt:Date,
+    harvestedAt: Date,
+    Position:Number,
 });
 
-const fermaSchema = Schema(
-  {
+const farmSchema = Schema(
+    {
+
       vegetables: {
       type: [vegetableSchema],
     },
@@ -18,10 +20,18 @@ const fermaSchema = Schema(
       type: SchemaTypes.ObjectId,
       ref: 'user',
     },
+          name: {
+      type: String,
+  
+    },
 
   },
   { versionKey: false, timestamps: true },
 );
-const Ferma = model('user', fermaSchema);
+const Farm = model('farm', farmSchema);
 
-module.exports = Ferma;
+module.exports = Farm;
+
+// получить все фермы юзера (названия)
+// создать ферму
+// получить ферму по айди
