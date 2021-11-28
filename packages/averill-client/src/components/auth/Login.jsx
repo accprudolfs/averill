@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import '../main.css'
+import React, { useState } from 'react'
+import { useLoginMutation } from '../../store/services.js'
+import Spinner from './Spinner.jsx'
 
 export default function Login() {
-  const [isLoggedIn, setisLoggedIn] = useState(false)
   const [formValues, setFormValues] = useState({
     name: '',
     email: '',
     password: '',
   })
   const [formErrors, setFormErrors] = useState({})
-
+  const [loginTrigger, { error, isLoading }] = useLoginMutation()
   const handleChange = e => {
     const { name, value } = e.target
     setFormValues({ ...formValues, [name]: value })
@@ -18,47 +17,27 @@ export default function Login() {
 
   const handleSubmit = async e => {
     e.preventDefault()
-    setFormErrors(validate(formValues))
-    if (Object.keys(formErrors).length === 0) {
+    const errors = validate(formValues)
+    setFormErrors(errors)
+    const isErrorEmpty = Object.keys(errors).length === 0
+    const isFormEmpty = Object.values(formValues).some(val => !val)
+    if (isErrorEmpty && !isFormEmpty) {
       try {
-        const status = await login()
-        if (status === 'success') {
-          setisLoggedIn(true)
-        }
-      } catch (error) {
+        await login(formValues)
+      } catch (err) {
         /* eslint-disable */
-        console.error(error)
+        console.error(err)
       }
     }
   }
 
-  const login = async () => {
+  const login = async payload => {
     try {
-      const payload = {
-        name: formValues.name,
-        email: formValues.email,
-        password: formValues.password,
-      }
-      const response = await axios.post(
-        'http://localhost:8080/api/users/login',
-        payload,
-      )
-      return response.data.status
-    } catch (error) {
+      await loginTrigger(payload)
+    } catch (e) {
       console.error(error)
     }
   }
-
-  useEffect(() => {
-    /* eslint-disable */
-    if (isLoggedIn) {
-      setFormValues({
-        name: '',
-        email: '',
-        password: '',
-      })
-    }
-  }, [isLoggedIn])
 
   const validate = values => {
     const errors = {}
@@ -83,13 +62,7 @@ export default function Login() {
 
   return (
     <div className="container">
-      {Object.keys(formErrors).length === 0 && isLoggedIn ? (
-        <div className="message success">
-          <p>Login is successfull</p>
-        </div>
-      ) : null}
-
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={async e => handleSubmit(e)}>
         <h1>Login Form</h1>
         <div className="ui divider"></div>
         <div className="ui form">
@@ -126,7 +99,14 @@ export default function Login() {
             />
           </div>
           <p> {formErrors.password} </p>
-          <button className="button">Submit</button>
+          {error ? (
+            <p>Something went wrong.Error: {error.data?.message}</p>
+          ) : null}
+          {isLoading ? (
+            <Spinner height={4} weidth={4} />
+          ) : (
+            <button className="button">Submit</button>
+          )}
         </div>
       </form>
     </div>

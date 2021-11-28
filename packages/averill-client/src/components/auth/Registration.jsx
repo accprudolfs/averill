@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import '../main.css'
+import { useSignUpMutation } from '../../store/services.js'
+import Spinner from './Spinner.jsx'
 
 export default function Registration() {
   const [formValues, setFormValues] = useState({
@@ -11,6 +11,7 @@ export default function Registration() {
   })
   const [formErrors, setFormErrors] = useState({})
   const [isSubmit, setIsSubmit] = useState(false)
+  const [signUpTrigger, { error, isLoading }] = useSignUpMutation()
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -19,13 +20,15 @@ export default function Registration() {
 
   const handleSubmit = async e => {
     e.preventDefault()
-    setFormErrors(validate(formValues))
-    if (Object.keys(formErrors).length === 0) {
+    const errors = validate(formValues)
+    setFormErrors(errors)
+    const isErrorEmpty = Object.keys(errors).length === 0
+    const isFormEmpty = Object.values(formValues).some(val => !val)
+    if (isErrorEmpty && !isFormEmpty) {
       try {
-        const status = await createUser()
-        if (status === 'success') {
-          setIsSubmit(true)
-        }
+        const { repeatPassword, ...payload } = formValues
+        const response = await signUpTrigger(payload)
+        setIsSubmit(response?.data?.status === 'success')
       } catch (error) {
         /* eslint-disable */
         console.error(error)
@@ -33,25 +36,7 @@ export default function Registration() {
     }
   }
 
-  const createUser = async () => {
-    try {
-      const payload = {
-        name: formValues.name,
-        email: formValues.email,
-        password: formValues.password,
-      }
-      const response = await axios.post(
-        'http://localhost:8080/api/users/signup',
-        payload,
-      )
-      return response.data.status
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   useEffect(() => {
-    /* eslint-disable */
     if (isSubmit) {
       setFormValues({
         name: '',
@@ -88,7 +73,7 @@ export default function Registration() {
   return (
     <div className="Registration" className="p-6 items-center justify-center">
       <div className="container" className="p-6 items-center justify-center">
-        {Object.keys(formErrors).length === 0 && isSubmit ? (
+        {isSubmit ? (
           <div className="message success" className="m-8">
             <p>Registration is successfull</p>
           </div>
@@ -102,7 +87,7 @@ export default function Registration() {
               <label>Username</label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="email"
+                id="name"
                 type="text"
                 name="name"
                 placeholder="Name"
@@ -128,7 +113,7 @@ export default function Registration() {
               <label>Password</label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="email"
+                id="password"
                 type="password"
                 name="password"
                 placeholder="Password"
@@ -150,12 +135,19 @@ export default function Registration() {
               />
             </div>
             <p> {formErrors.repeatPassword} </p>
-            <button
-              className="button"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Submit
-            </button>
+            {error ? (
+              <p>Something went wrong.Error: {error.data?.message}</p>
+            ) : null}
+            {isLoading ? (
+              <Spinner height={4} weidth={4} />
+            ) : (
+              <button
+                className="button"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Submit
+              </button>
+            )}
           </div>
         </form>
       </div>
