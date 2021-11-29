@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-sequences */
 import { createSlice } from '@reduxjs/toolkit'
 import { api } from '../services'
 
@@ -18,12 +20,13 @@ export const userSlice = createSlice({
       state.username = action.payload.name
       state.token = action.payload.token
     }),
-    builder.addMatcher(api.endpoints.logout.matchFulfilled, (state, action) => {
-    
-      state.username = ""
-      state.token = null
-  
-    })
+      builder.addMatcher(
+        api.endpoints.logout.matchFulfilled,
+        (state, action) => {
+          state.username = ''
+          state.token = null
+        },
+      )
   },
 })
 
