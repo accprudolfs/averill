@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { paths } from '../../router/routes'
 import Logo from '../Logo/Logo.jsx'
 import LogoutBtn from '../LogoutBtn/LogoutBtn.jsx'
-import NavItem from './NavItem/NavItem.jsx'
+import NavItem from './NavItem.jsx'
 
 export default function NavBar() {
   const { token: isLoggedIn } = useSelector(state => state.user)
@@ -30,7 +30,7 @@ export default function NavBar() {
             {loggedInNavItems.map(
               ({ path, title }) =>
                 location.pathname !== path && (
-                  <NavItem title={title} to={path} />
+                  <NavItem title={title} to={path} key={path} />
                 ),
             )}
             <LogoutBtn />
@@ -40,7 +40,7 @@ export default function NavBar() {
             {loggedOutNavItems.map(
               ({ path, title }) =>
                 location.pathname !== path && (
-                  <NavItem title={title} to={path} />
+                  <NavItem title={title} to={path} key={path} />
                 ),
             )}
           </>
