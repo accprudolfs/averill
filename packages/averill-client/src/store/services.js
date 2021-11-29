@@ -38,10 +38,10 @@ export const api = createApi({
         }
       },
     }),
-    logout: builder.query({
+    logout: builder.mutation({
       query: () => {
         return {
-          url: 'logout',
+          url: 'api/users/logout',
           method: 'GET',
         }
       },
@@ -70,6 +70,6 @@ export const {
   useSignUpMutation,
   useLoginMutation,
   useGetAllPlantsMutation,
-  useLogoutQuery,
+  useLogoutMutation,
   useGetAllFarmsQuery,
 } = api
