@@ -19,6 +19,14 @@ export const userSlice = createSlice({
     builder.addMatcher(api.endpoints.login.matchFulfilled, (state, action) => {
       state.username = action.payload.name
       state.token = action.payload.token
+
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          token: action.payload.token,
+          user: action.payload.user,
+        }),
+      )
     }),
       builder.addMatcher(
         api.endpoints.logout.matchFulfilled,
