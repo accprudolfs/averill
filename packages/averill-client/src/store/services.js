@@ -55,6 +55,14 @@ export const api = createApi({
         }
       },
     }),
+       getUserFarm: builder.query({
+      query: () => {
+        return {
+          url: 'api/farms/myFarm',
+          method: 'GET',
+        }
+      },
+    }),
     getAllFarms: builder.query({
       query: () => {
         return {
@@ -72,4 +80,5 @@ export const {
   useGetAllPlantsMutation,
   useLogoutMutation,
   useGetAllFarmsQuery,
+  useGetUserFarmQuery,
 } = api
