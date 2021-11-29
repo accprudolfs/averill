@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { paths } from '../../router/routes'
 import Logo from '../Logo/Logo.jsx'
 import LogoutBtn from '../LogoutBtn/LogoutBtn.jsx'
-import NavItem from '../NavItem/NavItem.jsx'
+import NavItem from './NavItem/NavItem.jsx'
 
 export default function NavBar() {
   const { token: isLoggedIn } = useSelector(state => state.user)
