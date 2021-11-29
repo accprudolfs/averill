@@ -5,7 +5,7 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     const token = getState().user.token
     if (token) {
-      headers.set('token', token)
+      headers.set('Authorization', `Bearer ${token}`)
     }
     headers.set('Content-Type', 'application/json')
     return headers
@@ -55,6 +55,14 @@ export const api = createApi({
         }
       },
     }),
+    getAllFarms: builder.query({
+      query: () => {
+        return {
+          url: 'api/farms/allFarms',
+          method: 'GET',
+        }
+      },
+    }),
   }),
 })
 
@@ -63,4 +71,5 @@ export const {
   useLoginMutation,
   useGetAllPlantsMutation,
   useLogoutQuery,
+  useGetAllFarmsQuery,
 } = api

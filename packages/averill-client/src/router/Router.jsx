@@ -13,10 +13,10 @@ const Router = () => (
     <Route element={<PublicRoute />}>
       <Route path={paths.home} element={<AllFarmsView />} />
     </Route>
-    <Route element={<PublicRoute restricted />}>
+    <Route element={<PublicRoute />}>
       <Route path={paths.login} element={<LoginView />} />
     </Route>
-    <Route element={<PublicRoute restricted />}>
+    <Route element={<PublicRoute />}>
       <Route path={paths.signup} element={<SignupView />} />
     </Route>
     <Route element={<PrivateRoute />}>

@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap --use-workspaces",
-    "start": "yarn --cwd packages/averill-client start",
+    "start": "lerna run start --stream",
     "start:app": "yarn --cwd packages/averill-client start",
     "start:server": "yarn --cwd packages/averill-server start",
     "test": "jest",
