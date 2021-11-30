@@ -14,14 +14,26 @@ export default function MyFarmView() {
             {
               plant: 'potato',
               watered: true,
-              x: 1,
-              y: 3,
+              x: 0,
+              y: 0,
             },
             {
               plant: 'carrot',
               watered: false,
-              x: 5,
-              y: 4,
+              x: 0,
+              y: 1,
+            },
+            {
+              plant: 'banana',
+              watered: false,
+              x: 0,
+              y: 2,
+            },
+            {
+              plant: 'apple',
+              watered: false,
+              x: 0,
+              y: 3,
             },
           ]}
         />
