@@ -1,6 +1,9 @@
 import React from 'react'
 import styles from './Farm.module.css'
 import Plant from '../Plant/Plant.jsx'
+import soil from './tiles/soil.svg'
+import soilWatered from './tiles/soil_watered.svg'
+import bg from './farm_bg.svg'
 
 export default function Farm(props) {
   const tiles = []
@@ -13,18 +16,35 @@ export default function Farm(props) {
         // TODO: add click and drop events to this div
         <div
           key={`tile-${i}`}
-          className={styles[plant.watered ? 'farm-tile-watered' : 'farm-tile']}
+          className={styles['farm-tile']}
+          style={{
+            'background-image': `url(${plant.watered ? soilWatered : soil})`,
+          }}
         >
           <Plant type={plant.plant} stage={2} />
         </div>,
       )
     } else {
       tiles.push(
-        <div className={styles['farm-tile']}>
-          <Plant type="none" />
+        <div
+          className={styles['farm-tile']}
+          style={{
+            'background-image': `url(${soil})`,
+          }}
+        >
+          <Plant />
         </div>,
       )
     }
   }
-  return <div className={styles.farm}> {tiles}</div>
+  return (
+    <div
+      className={styles.farm}
+      style={{
+        'background-image': `url(${bg})`,
+      }}
+    >
+      {tiles}
+    </div>
+  )
 }
