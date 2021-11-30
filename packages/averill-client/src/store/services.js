@@ -38,10 +38,10 @@ export const api = createApi({
         }
       },
     }),
-    logout: builder.query({
+    logout: builder.mutation({
       query: () => {
         return {
-          url: 'logout',
+          url: 'api/users/logout',
           method: 'GET',
         }
       },
@@ -52,6 +52,14 @@ export const api = createApi({
           url: 'api/shop/getPlants',
           method: 'POST',
           body,
+        }
+      },
+    }),
+       getUserFarm: builder.query({
+      query: () => {
+        return {
+          url: 'api/farms/myFarm',
+          method: 'GET',
         }
       },
     }),
@@ -70,6 +78,7 @@ export const {
   useSignUpMutation,
   useLoginMutation,
   useGetAllPlantsMutation,
-  useLogoutQuery,
+  useLogoutMutation,
   useGetAllFarmsQuery,
+  useGetUserFarmQuery,
 } = api
