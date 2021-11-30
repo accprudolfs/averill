@@ -21,7 +21,7 @@ export default function Farm(props) {
     } else {
       tiles.push(
         <div className={styles['farm-tile']}>
-          <Plant type="none" />
+          <Plant />
         </div>,
       )
     }

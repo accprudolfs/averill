@@ -1,6 +1,6 @@
 import React from 'react'
-import plants from './plants.png'
-import empty from './empty.png'
+import plants from './plants.js'
+
 import styles from './Plant.module.css'
 
 /**
@@ -11,11 +11,12 @@ import styles from './Plant.module.css'
 export default function Plant(props) {
   return (
     <img
-      src={empty}
-      style={{
-        'background-image': `url(${plants})`,
-      }}
-      className={styles[`${props.type}${props.stage ? `-${props.stage}` : ''}`]}
+      src={
+        props.type && props.stage && plants[props.type][props.stage]
+          ? plants[props.type][props.stage]
+          : plants.none
+      }
+      className={styles.plant}
     ></img>
   )
 }
