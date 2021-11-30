@@ -3,14 +3,10 @@
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
   margin-bottom: 300px;
+  padding: 8px;
+  background-size: 100%;
 }
 
 .farm-tile {
-  background-color: #55331c;
-  border: 1px solid #6e503c;
-}
-
-.farm-tile-watered {
-  background-color: #452713;
-  border: 1px solid #6e503c;
+  background-size: 100%;
 }
