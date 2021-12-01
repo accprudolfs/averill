@@ -10,7 +10,8 @@ function ShopComponent() {
   const [TraderHintState, setHintStatus] = useState(true)
   const AllPlants = useSelector(state => state.shop.AllPlants)
   const money = useSelector(state => state.shop.money)
-  let traderSpeech = null
+  const traderSpeech = document.getElementById('traderSpeech')
+
   // Call mutation to change ALL PLANTS STATE
   const [GetAllPlants, { isLoading }] = api.useGetAllPlantsMutation()
   const GetPlants = async payload => {
@@ -20,11 +21,8 @@ function ShopComponent() {
     } catch (e) {}
   }
 
-  // Get trader Speech div , set animation for it , and call mutation to set Allplants State
-
+  // call mutation to set Allplants State
   useEffect(() => {
-    traderSpeech = document.getElementById('traderSpeech')
-    traderSpeech.classList.add('fade')
     GetPlants()
   }, [])
 
@@ -63,15 +61,14 @@ function ShopComponent() {
       <div className="trader-area">
         <div
           id="traderSpeech"
-          className="bubble bubble-bottom-left traderSpeech "
+          className="bubble bubble-bottom-left traderSpeech fade "
         >
           <div className="Speech-wrapper">
             <span
               className="TraderSpeechCancelBtn"
               onClick={() => TraderSpeechHide()}
             >
-              {' '}
-              x{' '}
+              x
             </span>
             <p> {TraderDialogs}</p>
           </div>
@@ -115,7 +112,7 @@ function ShopComponent() {
         <div
           id="product-wrapper"
           className="flex product-wrapper"
-          onMouseEnter={TraderHintState ? TraderHint() : ''}
+          onMouseEnter={() => (TraderHintState ? TraderHint() : '')}
         >
           <div onClick={() => ShowPrew()}>
             <img className="Chevrons" src="/images/ShopImg/left.png" alt="" />
