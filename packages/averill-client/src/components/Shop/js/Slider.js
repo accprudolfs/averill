@@ -1,100 +1,140 @@
-// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-// DO NOT REPEAT YOURSELF HEELLOOO
+// Customisation
+const MobileBreakpoint = 600
+const TabletBreakpoint = 1000
+const DesktopCellNumber = 4
+const TabletCellNumber = 2
+const MobileCellNumber = 1
+// FullHD product Wraper Padding in %
+const productWrapperPadding = 20
+
+// Variables
 let FirstElement = 1
-let LastELEMENT = 1
-// How many is set in css file TODOOO
 let howMany = null
 let total = null
-// TODO
+let next = null
+let previous = null
+// For Resize to avoid function call on every resize
+let CurentStage = 0
+
+// Common Function
 function common() {
-  howMany = 4
-  if (document.body.offsetWidth < 1000) {
-    howMany = 2
-  }
-
-  if (document.body.offsetWidth < 600) {
-    howMany = 1
-  }
-
+  // variables
+  howMany = DesktopCellNumber
   const slides = document.getElementsByClassName('Shop-cell')
   total = slides.length
-
-  // HIDE ALL
+  // Howmany elements depending on screen resolution
+  if (document.body.offsetWidth < TabletBreakpoint) {
+    howMany = TabletCellNumber
+  }
+  if (document.body.offsetWidth < MobileBreakpoint) {
+    howMany = MobileCellNumber
+  }
+  // hide All
   for (let i = 1; i <= total; i++) {
     document.querySelector(`.Shop-cell:nth-child(${i})`).style.display = 'none'
+  }
+  // common dinamic css depending on cell quantity
+  const oneCellSize = 100 / howMany
+  const all = document.getElementsByClassName('Shop-cell')
+  for (let i = 0; i < all.length; i++) {
+    all[i].style.flex = ` 0 0${oneCellSize}%`
   }
 }
 
 export function Shownext() {
-  // common Fun TODO
-  common()
-
-  // NEW FIRST ELement
-  FirstElement = FirstElement + howMany
-
-  if (FirstElement > total) {
-    FirstElement = 1
+  common() // common Fun
+  // if it's first call then to firs element will be added howmany (which depends on screen resolution)
+  if (next == null) {
+    FirstElement = FirstElement + howMany
+  } else {
+    FirstElement = next
   }
-
+  let element = null
+  let ii = 1
   for (let i = 0; i < howMany; i++) {
-    let nextEL = FirstElement + i
-    if (nextEL > total) {
-      nextEL = 1 + i
+    let temp = FirstElement + i
+    if (temp > total) {
+      temp = ii
+      ii++
     }
-    document.querySelector(`.Shop-cell:nth-child(${nextEL})`).style.display =
-      'block'
-    document
-      .querySelector(`.Shop-cell:nth-child(${nextEL})`)
-      .classList.add('fade')
-    LastELEMENT = FirstElement + i
+    element = document.querySelector(`.Shop-cell:nth-child(${temp})`)
+    element.style.display = 'block'
+    element.classList.add('fade')
+    element.style.order = i
+    next = temp + 1
   }
+  previous = FirstElement - 1
 }
 
 export function ShowPrew() {
-  // common Fun TODO
-  common()
-
-  LastELEMENT = LastELEMENT - howMany
-  if (LastELEMENT < 1) {
-    LastELEMENT = total
+  common() // common Fun
+  if (previous == null) {
+    FirstElement = total
+  } else {
+    FirstElement = previous
   }
 
+  let element = null
+  let ii = 0
   for (let i = 0; i < howMany; i++) {
-    let PrevEL = LastELEMENT - i
-    if (PrevEL < 1) {
-      PrevEL = total
+    let temp = FirstElement - i
+    if (temp < 1) {
+      temp = total - ii
+      ii++
     }
-    document.querySelector(`.Shop-cell:nth-child(${PrevEL})`).style.display =
-      'block'
-    document.querySelector(`.Shop-cell:nth-child(${PrevEL})`).style.opacity =
-      '1'
-    FirstElement = LastELEMENT - i
+    previous = temp - 1
+    element = document.querySelector(`.Shop-cell:nth-child(${temp})`)
+    element.style.display = 'block'
+    element.classList.add('fade')
+    element.style.opacity = '1'
+    element.style.order = howMany - i
   }
+  next = FirstElement + 1
 }
 
-export function onResize() {
+export function OnLoad() {
+  // SHOW OnLoad
+  common()
+  const all = document.querySelectorAll('.Shop-cell')
+  for (let i = 0; i < howMany; i++) {
+    all[i].style.display = 'block'
+  }
+  const productWrapper = document.querySelectorAll('.product-wrapper')
+  productWrapper[0].style.padding = `0 ${productWrapperPadding}%`
+
+  let SetResizeStage = null
   window.addEventListener(
     'resize',
-    function (event) {
-      // common Fun TODO
-      common()
+    function () {
+      const currentSize = document.body.offsetWidth
 
-      for (let i = 1; i <= howMany; i++) {
-        document.querySelector(`.Shop-cell:nth-child(${i})`).style.display =
-          'block'
-        document
-          .querySelector(`.Shop-cell:nth-child(${i})`)
-          .classList.add('fade')
+      if (currentSize < MobileBreakpoint) {
+        SetResizeStage = 1
+      } else if (currentSize < TabletBreakpoint) {
+        SetResizeStage = 2
+      } else {
+        SetResizeStage = 3
       }
-
-      FirstElement = 1
-      LastELEMENT = 1
+      if (CurentStage !== SetResizeStage) {
+        common()
+        let ii = 1
+        for (let i = 0; i < howMany; i++) {
+          let nextEL = FirstElement + i
+          if (nextEL > total) {
+            nextEL = ii
+            ii++
+          }
+          const element = document.querySelector(
+            `.Shop-cell:nth-child(${nextEL})`,
+          )
+          element.style.display = 'block'
+          element.classList.add('fade')
+          element.style.order = i + 1
+        }
+        CurentStage = SetResizeStage
+        next = FirstElement + howMany
+        previous = FirstElement - 1
+      }
     },
     true,
   )
