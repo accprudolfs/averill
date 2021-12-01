@@ -1,53 +1,85 @@
-/* TO DO BAG WITH FIELD GREED */
-
+/* FONTS */
 @font-face {
 font-family: Estonia;
 src: url('Fonts/Estonia-Regular.ttf');
 }
 
+/* GENERAL */
 .shop-wrapper {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(92, 92, 92, 1);
+    background: #9aa45f;
     flex-direction: row;
-    max-height: 290px;
+    max-height: 260px;
+    border-radius: 45px 0 0;
 }
 
+/* TRADER AREA */
 .trader-area {
-    padding: 10px;
-    border-right: 1px solid #ccc;
-    border-radius: 7px;
+    min-width: 10%;
+    max-width: 12%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 40px 0 0 0;
+    border: 2px solid #604d3d;
+}
+
+@media only screen and (max-width: 1000px) {
+    .trader-area {
+        min-width: 20%;
+        max-width: 25%;
+    }
 }
 
 .Shop-trader-img {
     width: 130px;
-    height: auto;
+    height: 170px;
     padding: 10px;
-    border-radius: 7px;
-}
-
-@media only screen and (max-width: 780px) {
-    .Shop-trader-img  {
-        width: auto;
-        max-height: 150px;
-    }
+    margin: 0 auto;
+    border-radius: 7px;   
 }
 
 .Trader-speech-box {
     text-align: center;
     color: #fff;
-    border-radius: 5px;
     font-style: italic;
-    background: #666666;
+    background: #7a6451;
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 1px 1px 0 0;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+@media only screen and (max-width: 800px) {
+    .Trader-speech-box    {
+        font-size: 2vw;
+    }
+}
+
+/* SHOP HEADER */
 .Shop-header {
     align-items: center;
     border-bottom: 1px solid #fff;
     padding: 5px;
     text-align: center;
+}
+
+.Shop-logo {
+    height: auto;
+    width: 40px;
+    display: inline-block;
+}
+
+@media only screen and (max-width: 1200px) {
+    .Shop-logo    {
+        height: auto;
+        width: 28px;
+    }
 }
 
 .Shop-name {
@@ -58,24 +90,20 @@ src: url('Fonts/Estonia-Regular.ttf');
     align-items: center;
     justify-content: center;
     font-family: 'Estonia', cursive;
+    flex: 1;
+    font-size: 22px
 }
 
 @media only screen and (max-width: 800px) {
     .Shop-name  {
-      
         font-size: 3vw;
     }
-}
-.product-wrapper {
-    padding: 20px 15%;
-    align-items: center;
-    justify-content: center;
 }
 
 .moner-wrapper {
     padding-right: 10px ;
+    text-align: right;
 }
- 
 
 .Money-logo {
     height: auto;
@@ -85,8 +113,15 @@ src: url('Fonts/Estonia-Regular.ttf');
 
 @media only screen and (max-width: 1200px) {
     .Money-logo   {
-        height: auto;
+        height: 22px;
         width: 28px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .Money-logo   {
+        height: 18px;
+        width: 22px;
     }
 }
 
@@ -95,56 +130,76 @@ src: url('Fonts/Estonia-Regular.ttf');
     color: #e8da89;
 }
 
-.Shop-cell {
-    background: rgba(70, 69, 69, 1);
-    padding: 10px; 
+@media only screen and (max-width: 800px) {
+    .User-money   {
+        font-size: 2.5vw;
+    }
+}
+
+/* RightBar */
+.Shop-right-bar {
+    display: flex;
+    flex-direction: column;
+    background-image: url('https://tdri.or.th/wp-content/uploads/2020/07/bg-farmer.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+/* SLIDER */
+.product-wrapper {
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+@media only screen and (max-width: 1250px) {
+    .product-wrapper  {
+        padding: 0 12.5% !important;
+    }
+}
+
+.Shop-cell { 
     display: none;
     text-align: center;    
-    border-radius: 5px;  
     cursor: pointer;
-    flex: 0 0 25%;
-    border: 1px solid #c5ad9d;
+    min-height: 85px;
+    max-width: 200px;
 }
 
-.Shop-cell:nth-child(-n+4) {
-    display: block;
+.Shop-cell-inner {
+    background: rgba(70, 69, 69, 0.95);
+    border-radius: 5px;  
+    border: 2px solid #c5ad9d;
+    margin: 10px 15px;
 }
 
-@media only screen and (max-width: 1000px) {
-    .Shop-cell:nth-of-type(n) {
-        display: none;
-        flex: 0 0 40%;
-    }
-    
-    .Shop-cell:nth-of-type(1) {
-        display: block;
-    }
-    .Shop-cell:nth-of-type(2) {
-        display: block;
+.Shop-cell-inner:hover {
+    background: #3b3a3a;
+}
 
+.Product-title {
+    background-color: #909a5c;
+    padding: 10px 0;
+    color: #fff;
+    border-radius: 0 0 30px 30px;
+    font-weight: 500;
+}
+
+@media only screen and (max-width: 800px) {
+    .Product-title {
+        font-size: 2vw;
     }
 }
 
-@media only screen and (max-width: 600px) {
-    .Shop-cell:nth-of-type(n) {
-        display: none;
-        flex: 0 0 80%;
-    }
-
-    .Shop-cell:nth-of-type(1) {
-        display: block;
-    }
-    
-} 
- 
 .Shop-product-img {
     width: 85px;
     height: 85px;
     margin: 0 auto;
+    padding: 7px 0;
 }
 
 @media only screen and (max-width: 600px) {
-    .Shop-product-img    {
+    .Shop-product-img {
         width: 60px;
         height: 60px;
     }
@@ -152,20 +207,45 @@ src: url('Fonts/Estonia-Regular.ttf');
 
 .Shop-product-price {
     color: #fff;
+    border-top: 1px solid rgb(230, 224, 224);
+    padding: 10px 0;
+    font-family: 'Estonia', cursive;
+    font-weight: bold;
+    letter-spacing: 1px;
+    background-color: #524335;
 }
 
-.Shop-logo {
-    height: auto;
-    width: 40px;
-    display: inline-block;
-}
-@media only screen and (max-width: 1200px) {
-    .Shop-logo    {
-        height: auto;
-        width: 28px;
+@media only screen and (max-width: 800px) {
+    .Shop-product-price {
+        font-size: 2vw;
     }
 }
 
+.Chevrons {
+    padding: 5px;
+    cursor: pointer;
+    height: 40px;
+    width: 35px;
+}
+
+.Chevrons > img {
+    height: 100%;
+    width: 100%;
+}
+
+.shop-buy-btn {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 3px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+  
 /* Fading animation */
 .fade {
     -webkit-animation-name: fade;
@@ -185,22 +265,70 @@ src: url('Fonts/Estonia-Regular.ttf');
     to {opacity: 1}
   }
 
-  .Chevrons {
-    padding: 5px;
-    cursor: pointer;
-    height: 30px;
-    width: 30px;
-  }
+.highlighted{
+    background-color: #909a5c;
+    color: #000;
+}
 
-  .shop-buy-btn {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 3px 30px;
+.highlightedCell{
+    border: 5px solid #67e41a;
+}
+
+.bubble {
+    font-style: italic;
+    height: 75px;
+    position: absolute;
+    font-family: sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 200px;
+    max-width: 500px;
+    background: rgb(219, 219, 219);
+    border-radius: 40px;
+    padding: 24px;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 5px;
-    margin-top: 10px;
-  }
+    color: #000;
+    top: -80px;
+    left: 5%;
+    word-break: break-all;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 1000px) {
+    .bubble {
+        left: 10%;
+        height: 60px;
+        min-width: 100px;
+        top: -63px;
+        font-size: 2vw;
+        padding: 20px;
+    }
+}
+
+.bubble-bottom-left:before{
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 24px solid rgb(219, 219, 219);
+    border-right: 12px solid transparent;
+    border-top: 12px solid rgb(219, 219, 219);
+    border-bottom: 20px solid transparent;
+    left: 32px;
+    bottom: -24px;
+}
+
+.TraderSpeechCancelBtn {
+    position: absolute;
+    top: -90%;
+    color: red;
+    right: 5px;
+    cursor:pointer;
+}
+
+.Speech-wrapper {
+    width: 100%;
+    position: relative;
+}

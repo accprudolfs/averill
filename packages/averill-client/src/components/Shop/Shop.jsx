@@ -1,42 +1,104 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import './css/ShopStyle.css'
 import { api } from '../../store/services'
-import { Shownext, ShowPrew, onResize } from './js/Slider'
-
-function buyPlant(plantId) {
-  alert(`Plant Id is ${plantId}`)
-}
+import { Shownext, ShowPrew, OnLoad } from './js/Slider'
 
 function ShopComponent() {
   // Variables
-  const [createPost, { isLoading }] = api.useGetAllPlantsMutation()
-  useEffect(() => {
-    createPost()
-  }, [])
+  const [TraderDialogs, setSpeech] = useState('Hello')
+  const [TraderHintState, setHintStatus] = useState(true)
   const AllPlants = useSelector(state => state.shop.AllPlants)
   const money = useSelector(state => state.shop.money)
+  const traderSpeech = document.getElementById('traderSpeech')
 
-  // TO DO Slider on Resize
-  onResize()
+  // Call mutation to change ALL PLANTS STATE
+  const [GetAllPlants, { isLoading }] = api.useGetAllPlantsMutation()
+  const GetPlants = async payload => {
+    try {
+      await GetAllPlants(payload)
+      OnLoad()
+    } catch (e) {}
+  }
+
+  // call mutation to set Allplants State
+  useEffect(() => {
+    GetPlants()
+  }, [])
+
+  // Hide Trader Speech
+  function TraderSpeechHide() {
+    traderSpeech.style.display = 'none'
+  }
+
+  // Trader Hint how to but plant , will be calles just once
+  function TraderHint() {
+    traderSpeech.style.display = 'block'
+    setSpeech(`Select plant , and plant it on the field`)
+    setHintStatus(false)
+  }
+
+  // But Plant , add id to state TODO now trader just say plant id
+  function buyPlant(plantId, index) {
+    // Highliting selected PLANT
+    const el = document.getElementsByClassName('Shop-product-price')
+    const elParent = document.getElementsByClassName('Shop-cell-inner')
+    // Remove Highliting from all divs
+    for (let i = 0; i < el.length; i++) {
+      el[i].classList.remove('highlighted')
+      elParent[i].classList.remove('highlightedCell')
+    }
+    // Add Highliting class and set Trader Speech
+    el[index].classList.add('highlighted')
+    elParent[index].classList.add('highlightedCell')
+    traderSpeech.style.display = 'block'
+    setSpeech(`Plant Id is ${plantId}`)
+  }
+
   return (
     <div className="shop-wrapper flex">
       {/* Trader Area */}
       <div className="trader-area">
-        <div className="TalkBox animate-bounce font-bold text-center">
-          HELLO
+        <div
+          id="traderSpeech"
+          className="bubble bubble-bottom-left traderSpeech fade "
+        >
+          <div className="Speech-wrapper">
+            <span
+              className="TraderSpeechCancelBtn"
+              onClick={() => TraderSpeechHide()}
+            >
+              x
+            </span>
+            <p> {TraderDialogs}</p>
+          </div>
         </div>
-        <img className="Shop-trader-img" src="/images/ShopImg/trader.png" />
+        <div
+          style={{
+            flex: '1',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <img className="Shop-trader-img" src="/images/ShopImg/trader.png" />
+        </div>
         <div className="Trader-speech-box"> Joney </div>
       </div>
 
-      {/* Shop Header */}
-      <div className="flex-1 , Shop-right-bar">
+      {/* Shop Right Bar */}
+      <div
+        className="flex-1 , Shop-right-bar"
+        style={{ backgroundImage: 'url("./images/ShopImg/shopBg.png")' }}
+      >
+        {/* Shop Header */}
         <div className="flex , Shop-header">
-          <h1 className="flex-1 , Shop-name">
-            <img className="Shop-logo" src="/images/ShopImg/ShopLogo.png" />
-            HAPPY FARMER
-          </h1>
+          <div className=" Shop-name">
+            <div>
+              <img className="Shop-logo" src="/images/ShopImg/ShopLogo.png" />
+              <span> HAPPY FARMER </span>
+            </div>
+          </div>
           <div className="moner-wrapper">
             <img
               className="Money-logo"
@@ -46,39 +108,43 @@ function ShopComponent() {
             <span className="User-money"> {money} $ </span>
           </div>
         </div>
-
         {/* Shop products and prices */}
-        <div className="flex product-wrapper">
+        <div
+          id="product-wrapper"
+          className="flex product-wrapper"
+          onMouseEnter={() => (TraderHintState ? TraderHint() : '')}
+        >
           <div onClick={() => ShowPrew()}>
             <img className="Chevrons" src="/images/ShopImg/left.png" alt="" />
           </div>
           {isLoading}
           <div
             className="flex flex-wrap flex-1 wra"
-            style={{ justifyContent: 'center' }}
+            style={{ justifyContent: 'center', display: 'flex' }}
           >
             {AllPlants.map((plant, index) => {
               return (
-                <div className="Shop-cell" key={index}>
-                  <div>
-                    <img
-                      className="Shop-product-img"
-                      src={plant.img}
-                      alt=""
-                      data-price={plant.price}
-                    />
+                <div
+                  className="Shop-cell"
+                  key={index}
+                  onClick={() => buyPlant(plant._id, index)}
+                >
+                  <div className="Shop-cell-inner">
+                    <div className="Product-title"> {plant.name}</div>
+                    <div>
+                      <img
+                        className="Shop-product-img"
+                        src={plant.img}
+                        style={{ backgroundPosition: '0 0' }}
+                        alt=""
+                        data-price={plant.price}
+                      />
+                    </div>
+                    <div className="Shop-product-price"> {plant.price} $ </div>
                   </div>
-                  <p className="Shop-product-price"> {plant.price} $ </p>
-                  <button
-                    className="shop-buy-btn"
-                    onClick={() => buyPlant(plant.id)}
-                  >
-                    BUY
-                  </button>
                 </div>
               )
             })}
-            {/* FOR TEST <div className="Shop-cell" title="Drag And Drop"></div> */}
           </div>
           <div className="Chevrons" onClick={() => Shownext()}>
             <img src="/images/ShopImg/right.png" alt="" />
