@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useLoginMutation } from '../../store/services.js'
 import Spinner from './Spinner.jsx'
+import Button from './button.jsx'
 
 export default function Login() {
   const [formValues, setFormValues] = useState({
@@ -61,54 +62,62 @@ export default function Login() {
   }
 
   return (
-    <div className="container">
-      <form onSubmit={async e => handleSubmit(e)}>
-        <h1>Login Form</h1>
-        <div className="ui divider"></div>
-        <div className="ui form">
-          <div className="field">
-            <label>Username</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Username"
-              values={formValues.name}
-              onChange={handleChange}
-            />
+    <div className="md:container md:mx-auto">
+      <div className="flex justify-center font-serif">
+        <form onSubmit={async e => handleSubmit(e)}>
+          <h1 className="h1">Login Form</h1>
+          <div className="space-y-6">
+            <div className="field">
+              <label className="text-lg">Username</label>
+              <input
+                className="inpt focus:outline-none focus:shadow-outline"
+                type="text"
+                name="name"
+                placeholder="Username"
+                values={formValues.name}
+                onChange={handleChange}
+              />
+            </div>
+            <p className="er-msg"> {formErrors.name} </p>
+            <div className="field">
+              <label className="text-lg">Email</label>
+              <input
+                className="inpt focus:outline-none focus:shadow-outline"
+                type="email"
+                name="email"
+                placeholder="Email"
+                values={formValues.email}
+                onChange={handleChange}
+              />
+            </div>
+            <p className="er-msg"> {formErrors.email} </p>
+            <div className="field">
+              <label className="text-lg">Password</label>
+              <input
+                className="inpt focus:outline-none focus:shadow-outline"
+                type="password"
+                name="password"
+                placeholder="Password"
+                values={formValues.password}
+                onChange={handleChange}
+              />
+            </div>
+            <p className="er-msg"> {formErrors.password} </p>
+            <div className="flex flex-col justify-center space-y-2">
+              {error ? (
+                <p className="er-msg">
+                  Something went wrong. Error: {error.data?.message}
+                </p>
+              ) : null}
+              {isLoading ? (
+                <Spinner height={4} weidth={4} />
+              ) : (
+                <Button>Submit</Button>
+              )}
+            </div>
           </div>
-          <p> {formErrors.name} </p>
-          <div className="field">
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              values={formValues.email}
-              onChange={handleChange}
-            />
-          </div>
-          <p> {formErrors.email} </p>
-          <div className="field">
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              values={formValues.password}
-              onChange={handleChange}
-            />
-          </div>
-          <p> {formErrors.password} </p>
-          {error ? (
-            <p>Something went wrong.Error: {error.data?.message}</p>
-          ) : null}
-          {isLoading ? (
-            <Spinner height={4} weidth={4} />
-          ) : (
-            <button className="button">Submit</button>
-          )}
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   )
 }

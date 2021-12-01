@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSignUpMutation } from '../../store/services.js'
 import Spinner from './Spinner.jsx'
+import Button from './button.jsx'
 
 export default function Registration() {
   const [formValues, setFormValues] = useState({
@@ -29,11 +30,13 @@ export default function Registration() {
         const { repeatPassword, ...payload } = formValues
         const response = await signUpTrigger(payload)
         setIsSubmit(response?.data?.status === 'success')
+        return
       } catch (error) {
         /* eslint-disable */
         console.error(error)
       }
     }
+    setIsSubmit(false)
   }
 
   useEffect(() => {
@@ -70,23 +73,25 @@ export default function Registration() {
     }
     return errors
   }
-  return (
-    <div className="Registration" className="p-6 items-center justify-center">
-      <div className="container" className="p-6 items-center justify-center">
-        {isSubmit ? (
-          <div className="message success" className="m-8">
-            <p>Registration is successfull</p>
-          </div>
-        ) : null}
 
+  return (
+    <div className="md:container md:mx-auto">
+      <div className="flex justify-center font-serif">
         <form onSubmit={handleSubmit}>
-          <h1 className="m-8">Registration Form</h1>
-          <div className="ui divider"></div>
-          <div className="ui form " className="space-y-6">
-            <div className="field" className="m-6">
-              <label>Username</label>
+          <h1 className="h1">Registration Form</h1>
+
+          {isSubmit ? (
+            <div className="m-8">
+              <p className="text-lg flex justify-center">
+                Registration is successfull
+              </p>
+            </div>
+          ) : null}
+          <div className="space-y-6">
+            <div className="field">
+              <label className="text-lg">Username</label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="inpt focus:outline-none focus:shadow-outline"
                 id="name"
                 type="text"
                 name="name"
@@ -95,11 +100,11 @@ export default function Registration() {
                 onChange={handleChange}
               />
             </div>
-            <p> {formErrors.name} </p>
-            <div className="field" className="m-6">
-              <label>Email</label>
+            <p className="er-msg"> {formErrors.name} </p>
+            <div className="field">
+              <label className="text-lg">Email</label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="inpt focus:outline-none focus:shadow-outline"
                 id="email"
                 type="email"
                 name="email"
@@ -108,11 +113,11 @@ export default function Registration() {
                 onChange={handleChange}
               />
             </div>
-            <p> {formErrors.email} </p>
-            <div className="field" className="m-6">
-              <label>Password</label>
+            <p className="er-msg"> {formErrors.email} </p>
+            <div className="field">
+              <label className="text-lg">Password</label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="inpt focus:outline-none focus:shadow-outline"
                 id="password"
                 type="password"
                 name="password"
@@ -121,33 +126,32 @@ export default function Registration() {
                 onChange={handleChange}
               />
             </div>
-            <p> {formErrors.password} </p>
-            <div className="field" className="m-6">
-              <label>Repeate your Password</label>
+            <p className="er-msg"> {formErrors.password} </p>
+            <div className="field">
+              <label className="text-lg">Repeate your Password</label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="inpt focus:outline-none focus:shadow-outline"
                 id="repeatPassword"
                 type="password"
                 name="repeatPassword"
-                placeholder="RepeatPassword"
+                placeholder="Repeated Password"
                 value={formValues.repeatPassword}
                 onChange={handleChange}
               />
             </div>
-            <p> {formErrors.repeatPassword} </p>
-            {error ? (
-              <p>Something went wrong.Error: {error.data?.message}</p>
-            ) : null}
-            {isLoading ? (
-              <Spinner height={4} weidth={4} />
-            ) : (
-              <button
-                className="button"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-                Submit
-              </button>
-            )}
+            <p className="er-msg"> {formErrors.repeatPassword} </p>
+            <div className="flex flex-col justify-center space-y-2">
+              {error ? (
+                <p className="er-msg">
+                  Something went wrong. Error: {error.data?.msgage}
+                </p>
+              ) : null}
+              {isLoading ? (
+                <Spinner height={4} weidth={4} />
+              ) : (
+                <Button>Submit</Button>
+              )}
+            </div>
           </div>
         </form>
       </div>
