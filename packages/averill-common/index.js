@@ -34,6 +34,6 @@ const plants = [
     stageTime: [10000, 20000, 60000],
     harvests: 50,
   },
-]
+];
 
-export default plants
+module.exports =   plants
