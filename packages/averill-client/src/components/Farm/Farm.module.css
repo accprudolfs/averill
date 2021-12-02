@@ -2,7 +2,7 @@
   display: inline-grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
-  padding: 8px;
+  padding: 18px;
   background-size: 100%;
 
   /* sorry for magic numbers here - these are responsible to make sure farm size is no greater than 
