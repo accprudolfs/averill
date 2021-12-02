@@ -5,12 +5,16 @@
   padding: 18px;
   background-size: 100%;
 
-  /* sorry for magic numbers here - these are responsible to make sure farm size is no greater than 
-  space between navigation bar and shop so that farm is not covered by shop (which has absolute position)
-  */
+  /* I give up */
   width: calc(100vh - 250px - 80px);
 }
 
-.farm-tile {
+@media screen and (max-width: 600px) {
+  .farm {
+    width: calc(100vh - 250px - 80px + 60px);
+  }
+}
+
+.farm .farm-tile {
   background-size: 100%;
 }
