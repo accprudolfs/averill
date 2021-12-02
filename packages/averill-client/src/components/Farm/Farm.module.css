@@ -2,11 +2,19 @@
   display: inline-grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
-  margin-bottom: 350px;
-  padding: 8px;
+  padding: 18px;
   background-size: 100%;
+
+  /* I give up */
+  width: calc(100vh - 250px - 80px);
 }
 
-.farm-tile {
+@media screen and (max-width: 600px) {
+  .farm {
+    width: calc(100vh - 250px - 80px + 60px);
+  }
+}
+
+.farm .farm-tile {
   background-size: 100%;
 }

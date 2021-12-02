@@ -5,8 +5,7 @@ import Shop from '../components/Shop/Shop.jsx'
 
 export default function MyFarmView() {
   return (
-    // 2C7002
-    <div className="bg-dark-bg-green">
+    <div className="bg-dark-bg-green h-screen">
       <Header />
       <div className="flex justify-center">
         <Farm
