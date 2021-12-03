@@ -22,12 +22,21 @@ function common() {
   howMany = DesktopCellNumber
   const slides = document.getElementsByClassName('Shop-cell')
   total = slides.length
+
   // Howmany elements depending on screen resolution
   if (document.body.offsetWidth < TabletBreakpoint) {
     howMany = TabletCellNumber
   }
   if (document.body.offsetWidth < MobileBreakpoint) {
     howMany = MobileCellNumber
+  }
+  const Chevrons = document.getElementsByClassName('Chevrons')
+  if (howMany >= total) {
+    Chevrons[0].style.display = 'none'
+    Chevrons[1].style.display = 'none'
+  } else {
+    Chevrons[0].style.display = 'Block'
+    Chevrons[1].style.display = 'Block'
   }
   // hide All
   for (let i = 1; i <= total; i++) {
