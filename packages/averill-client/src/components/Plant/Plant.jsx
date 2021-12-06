@@ -12,7 +12,7 @@ export default function Plant(props) {
   return (
     <img
       src={
-        props.type && props.stage && plants[props.type][props.stage]
+        props.type && plants[props.type][props.stage]
           ? plants[props.type][props.stage]
           : plants.none
       }
