@@ -6,7 +6,7 @@
   background-size: 100%;
 
   /* I give up */
-  width: calc(100vh - 250px - 80px);
+  width: calc(100vh - 250px - 80px - 32px);
 }
 
 @media screen and (max-width: 600px) {
@@ -17,4 +17,11 @@
 
 .farm .farm-tile {
   background-size: 100%;
+}
+
+.farm-button {
+  border: 1px solid black;
+  border-radius: 4px;
+  display: inline-block;
+  padding: 2px 16px 2px 16px;
 }
