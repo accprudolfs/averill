@@ -332,3 +332,10 @@ src: url('Fonts/Estonia-Regular.ttf');
     width: 100%;
     position: relative;
 }
+
+.TraderImgContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,23 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { api } from '../services'
 
 const initialState = {
-  AllPlants: [],
   money: 100,
+  plantInHand: null,
 }
 
 export const ShopSlice = createSlice({
-  name: 'getAllPlants2',
+  name: 'Shop',
   initialState,
-  reducers: {},
-  extraReducers: builder => {
-    builder.addMatcher(
-      api.endpoints.getAllPlants.matchFulfilled,
-      (state, action) => {
-        state.AllPlants = action.payload
-      },
-    )
+  reducers: {
+    setPlantInHand: (state, action) => {
+      state.plantInHand = action.payload
+    },
   },
 })
 
+export const { setPlantInHand } = ShopSlice.actions
 export default ShopSlice.reducer
