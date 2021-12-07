@@ -5,6 +5,7 @@ import soil from './tiles/soil.svg'
 import soilWatered from './tiles/soil_watered.svg'
 import bg from './farm_bg.svg'
 import { useSelector, useDispatch } from 'react-redux'
+// import plants from '@averill-app/common'
 
 import { addPlant } from '@averill-app/client/src/store/slices/farm'
 
@@ -15,23 +16,30 @@ export default function Farm(props) {
   const plants = useSelector(state => state.farm.plants)
   const dispatch = useDispatch()
 
-  function plantPlant(x, y) {
+  //   type: String,
+  //   created: Date,
+  //   watered: Date,
+  //   harvesrs: Number,
+  //   harvestedAt: Date,
+  //   position: Number,
+
+  function plantPlant(position) {
     if (selectedPlant) {
       dispatch(
         addPlant({
-          plant: selectedPlant,
-          x: x,
-          y: y,
-          watered: true,
+          type: selectedPlant,
+          created: Date.now(),
+          watered: Date.now(),
+          harvests: 1,
+          harvestedAt: Date.now(),
+          position: position,
         }),
       )
     }
   }
 
   for (let i = 0; i < 64; i++) {
-    const plant = plants.find(
-      item => item.x === i % 8 && item.y === Math.floor(i / 8),
-    )
+    const plant = plants.find(item => item.position === i)
 
     if (plant) {
       tiles.push(
@@ -42,7 +50,7 @@ export default function Farm(props) {
             backgroundImage: `url(${plant.watered ? soilWatered : soil})`,
           }}
         >
-          <Plant type={plant.plant} stage={0} />
+          <Plant type={plant.type} stage={0} />
         </div>,
       )
     } else {
@@ -53,7 +61,7 @@ export default function Farm(props) {
           style={{
             backgroundImage: `url(${soil})`,
           }}
-          onClick={() => plantPlant(i % 8, Math.floor(i / 8))}
+          onClick={() => plantPlant(i)}
         >
           <Plant />
         </div>,
