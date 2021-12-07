@@ -4,7 +4,7 @@ const vegetableSchema = new Schema({
   type: String,
   created: Date,
   watered: Date,
-  harvesrs: Number,
+  harvests: Number,
   harvestedAt: Date,
   position: Number,
 })
@@ -31,4 +31,3 @@ module.exports = Farm
 // get all users farms
 // add farm
 // get farm by id
-// type,position then find current farm and check that position is available and ccompare common arr that plant is exist
