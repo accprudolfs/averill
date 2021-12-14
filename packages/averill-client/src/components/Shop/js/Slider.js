@@ -1,150 +1,156 @@
+/* Main idea is to return Array of indexes of cells to show to user */
+
 // Customisation
-const MobileBreakpoint = 600
-const TabletBreakpoint = 1000
-const DesktopCellNumber = 4
-const TabletCellNumber = 2
-const MobileCellNumber = 1
+const mobileBreakpoint = 800
+const tabletBreakpoint = 1000
+const desktopCellNumber = 4
+const tabletCellNumber = 2
+const mobileCellNumber = 1
 // FullHD product Wraper Padding in %
-const productWrapperPadding = 20
 
 // Variables
-let FirstElement = 1
-let howMany = null
-let total = null
-let next = null
-let previous = null
-// For Resize to avoid function call on every resize
-let CurentStage = 0
+let howManyToDisplay = null
+let nextEl = null
+let previousEl = null
+let firstEl = 0
 
-// Common Function
-function common() {
-  // variables
-  howMany = DesktopCellNumber
-  const slides = document.getElementsByClassName('Shop-cell')
-  total = slides.length
-
+// Common Function for On load and On resize
+// Sets proper elements count and styling for this resolution
+function sliderSettings(props) {
   // Howmany elements depending on screen resolution
-  if (document.body.offsetWidth < TabletBreakpoint) {
-    howMany = TabletCellNumber
-  }
-  if (document.body.offsetWidth < MobileBreakpoint) {
-    howMany = MobileCellNumber
-  }
-  const Chevrons = document.getElementsByClassName('Chevrons')
-  if (howMany >= total) {
-    Chevrons[0].style.display = 'none'
-    Chevrons[1].style.display = 'none'
+  const windowWidth = document.body.offsetWidth
+  if (windowWidth > tabletBreakpoint) {
+    howManyToDisplay = desktopCellNumber
+  } else if (windowWidth > mobileBreakpoint) {
+    howManyToDisplay = tabletCellNumber
   } else {
-    Chevrons[0].style.display = 'Block'
-    Chevrons[1].style.display = 'Block'
+    howManyToDisplay = mobileCellNumber
   }
-  // hide All
-  for (let i = 1; i <= total; i++) {
-    document.querySelector(`.Shop-cell:nth-child(${i})`).style.display = 'none'
-  }
-  // common dinamic css depending on cell quantity
-  const oneCellSize = 100 / howMany
-  const all = document.getElementsByClassName('Shop-cell')
-  for (let i = 0; i < all.length; i++) {
-    all[i].style.flex = ` 0 0${oneCellSize}%`
-  }
+  // if not enought elements hide chevrons
+  howManyToDisplay < props.sliderLength
+    ? props.setChevronsState(true)
+    : props.setChevronsState(false)
 }
 
-export function Shownext() {
-  common() // common Fun
-  // if it's first call then to firs element will be added howmany (which depends on screen resolution)
-  if (next == null) {
-    FirstElement = FirstElement + howMany
-  } else {
-    FirstElement = next
-  }
-  let element = null
-  let ii = 1
-  for (let i = 0; i < howMany; i++) {
-    let temp = FirstElement + i
-    if (temp > total) {
-      temp = ii
-      ii++
-    }
-    element = document.querySelector(`.Shop-cell:nth-child(${temp})`)
-    element.style.display = 'block'
-    element.classList.add('fade')
-    element.style.order = i
-    next = temp + 1
-  }
-  previous = FirstElement - 1
-}
-
-export function ShowPrew() {
-  common() // common Fun
-  if (previous == null) {
-    FirstElement = total
-  } else {
-    FirstElement = previous
-  }
-
-  let element = null
-  let ii = 0
-  for (let i = 0; i < howMany; i++) {
-    let temp = FirstElement - i
-    if (temp < 1) {
-      temp = total - ii
-      ii++
-    }
-    previous = temp - 1
-    element = document.querySelector(`.Shop-cell:nth-child(${temp})`)
-    element.style.display = 'block'
-    element.classList.add('fade')
-    element.style.opacity = '1'
-    element.style.order = howMany - i
-  }
-  next = FirstElement + 1
-}
-
-export function OnLoad() {
-  // SHOW OnLoad
-  common()
-  const all = document.querySelectorAll('.Shop-cell')
-  for (let i = 0; i < howMany; i++) {
-    all[i].style.display = 'block'
-  }
-  const productWrapper = document.querySelectorAll('.product-wrapper')
-  productWrapper[0].style.padding = `0 ${productWrapperPadding}%`
-
-  let SetResizeStage = null
-  window.addEventListener(
-    'resize',
-    function () {
-      const currentSize = document.body.offsetWidth
-
-      if (currentSize < MobileBreakpoint) {
-        SetResizeStage = 1
-      } else if (currentSize < TabletBreakpoint) {
-        SetResizeStage = 2
-      } else {
-        SetResizeStage = 3
-      }
-      if (CurentStage !== SetResizeStage) {
-        common()
-        let ii = 1
-        for (let i = 0; i < howMany; i++) {
-          let nextEL = FirstElement + i
-          if (nextEL > total) {
-            nextEL = ii
-            ii++
-          }
-          const element = document.querySelector(
-            `.Shop-cell:nth-child(${nextEL})`,
-          )
-          element.style.display = 'block'
-          element.classList.add('fade')
-          element.style.order = i + 1
-        }
-        CurentStage = SetResizeStage
-        next = FirstElement + howMany
-        previous = FirstElement - 1
-      }
+function commonStyle(props) {
+  // slider Settings dynamic css depending on cell quantity , and padding for product wrapper
+  const oneCellSize = 100 / howManyToDisplay
+  const styles = {
+    cellSize: {
+      flex: ` 0 0 ${oneCellSize}%`,
     },
-    true,
-  )
+  }
+  props.setCommonStyles(styles)
+}
+
+// ON PAGE LOAD
+export function onLoad(props) {
+  // Set How many elements to display , show/hide chevrons , sets dinamic style
+  sliderSettings(props)
+  commonStyle(props)
+  // Preapre array of element to show on load , and save it in actives slides
+  // ( array contain index of cells to display)
+  const prepArray = []
+  for (let i = 0; i < howManyToDisplay; i++) {
+    prepArray.push(i)
+  }
+  props.setActiveSlides(prepArray)
+}
+
+// SHOW NEXT
+export function showNext(props) {
+  // on first load sets nexEl from activeSlides state (is set on onload)
+  if (!nextEl) {
+    const activeSlides = props.activeSlides
+    nextEl = activeSlides[activeSlides.length - 1] + 1
+  }
+  // Preapre array of element to show on Next btn. click , and save it in activesSlides
+  // ( array contain index of cells to display)
+  const prepArray = []
+  let extraIterator = 0
+  for (let i = 0; i < howManyToDisplay; i++) {
+    if (nextEl + extraIterator > props.sliderLength - 1) {
+      nextEl = 0
+      extraIterator = 0
+    }
+    prepArray.push(nextEl + extraIterator)
+    extraIterator++
+  }
+  // save new positions into first el., next el., previous el. ,
+  // and saves new array of indexes to show into setActiveSlides(State)
+  firstEl = prepArray[0]
+  nextEl = prepArray[prepArray.length - 1] + 1
+  previousEl = prepArray[0] - 1
+  props.setActiveSlides(prepArray)
+}
+
+// SHOW PREVIOUS
+export function showPrew(props) {
+  if (!previousEl) {
+    previousEl = props.activeSlides[0] - 1
+  }
+  // Preapre array of element to show on Back btn. click , and save it in activesSlides
+  // ( array contain index of cells to display)
+  const prepArray = []
+  let extraIterator = 0
+  for (let i = 0; i < howManyToDisplay; i++) {
+    if (previousEl - extraIterator < 0) {
+      previousEl = props.sliderLength - 1
+      extraIterator = 0
+    }
+    prepArray.push(previousEl - extraIterator)
+    extraIterator++
+  }
+  // save new positions into first el., next el., previous el. ,
+  // and saves new array of indexes to show into setActiveSlides(State) - reversed for proper order
+  nextEl = prepArray[0] + 1
+  previousEl = prepArray[prepArray.length - 1] - 1
+  const reversedPrepArray = prepArray.reverse()
+  firstEl = reversedPrepArray[0]
+  props.setActiveSlides(reversedPrepArray)
+}
+
+// ON RESIZE FUN
+let curentStage = 0
+let resizeStage = null
+
+export function onResize(props) {
+  // Set How many elements to display , show/hide chevrons , sets dinamic style
+  sliderSettings(props)
+  // To avoid fun. call on every resize , we set stages depending on screen resolution
+  const currentSize = document.body.offsetWidth
+  if (currentSize <= mobileBreakpoint) {
+    resizeStage = 1
+  } else if (currentSize <= tabletBreakpoint) {
+    resizeStage = 2
+  } else {
+    resizeStage = 3
+  }
+  // if stage did not change , we do nothings
+
+  if (curentStage !== resizeStage) {
+    commonStyle(props)
+    // Prepare array of element to show on resize , according on first element index
+    // saves it in actives slides ( array contain index of cells to display)
+    const prepArray = []
+    let extraIterator = 0
+    let tempNext = null
+    let tempFirst = firstEl
+    for (let i = 0; i < howManyToDisplay; i++) {
+      tempNext = tempFirst + extraIterator
+      if (tempNext > props.sliderLength - 1) {
+        extraIterator = 0
+        tempFirst = 0
+        tempNext = 0
+      }
+      prepArray.push(tempNext)
+      extraIterator++
+    }
+    // save new positions into first el., next el., previous el. ,
+    // and saves new array of indexes to show into setActiveSlides(State).
+    nextEl = tempNext + 1
+    previousEl = firstEl - 1
+    curentStage = resizeStage
+    props.setActiveSlides(prepArray)
+  }
 }

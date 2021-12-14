@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-function ShopHeader() {
+export default function ShopHeader() {
   const userMoney = useSelector(state => state.shop.money)
   return (
     <div className="flex , Shop-header">
@@ -22,5 +22,3 @@ function ShopHeader() {
     </div>
   )
 }
-
-export default ShopHeader
