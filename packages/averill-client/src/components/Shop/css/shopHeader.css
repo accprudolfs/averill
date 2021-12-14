@@ -1,0 +1,68 @@
+/* SHOP HEADER */
+.Shop-header {
+    align-items: center;
+    border-bottom: 1px solid #fff;
+    padding: 5px;
+    text-align: center;
+}
+
+.Shop-logo {
+    height: auto;
+    width: 40px;
+    display: inline-block;
+}
+
+.Shop-name {
+    color: #74c91b;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Estonia', cursive;
+    flex: 1;
+    font-size: 22px
+}
+
+.moner-wrapper {
+    padding-right: 10px ;
+    text-align: right;
+}
+
+.Money-logo {
+    height: auto;
+    width: 30px;
+    display: inline-block;
+}
+
+.User-money {
+    font-size: 16px;
+    color: #e8da89;
+}
+
+@media only screen and (max-width: 1000px) {
+    .Shop-logo    {
+        height: auto;
+        width: 28px;
+    }
+
+    .Money-logo   {
+        height: 22px;
+        width: 28px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .Shop-name  {
+        font-size: 3vw;
+    }
+
+    .Money-logo   {
+        height: 18px;
+        width: 22px;
+    }
+
+    .User-money   {
+        font-size: 2.5vw;
+    }
+}

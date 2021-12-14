@@ -1,0 +1,108 @@
+/* TRADER AREA */
+.trader-area {
+    min-width: 10%;
+    max-width: 12%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 40px 0 0 0;
+    border: 2px solid #604d3d;
+}
+
+.bubble {
+    font-style: italic;
+    height: 75px;
+    position: absolute;
+    font-family: sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 200px;
+    max-width: 500px;
+    background: rgb(219, 219, 219);
+    border-radius: 40px;
+    padding: 24px;
+    text-align: center;
+    color: #000;
+    top: -80px;
+    left: 5%;
+    word-break: break-all;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bubble-bottom-left:before{
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 24px solid rgb(219, 219, 219);
+    border-right: 12px solid transparent;
+    border-top: 12px solid rgb(219, 219, 219);
+    border-bottom: 20px solid transparent;
+    left: 32px;
+    bottom: -24px;
+}
+
+.TraderSpeechCancelBtn {
+    position: absolute;
+    top: -90%;
+    color: red;
+    right: 5px;
+    cursor:pointer;
+}
+
+.Speech-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+.TraderImgContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Shop-trader-img {
+    width: 130px;
+    height: 170px;
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 7px;   
+}
+
+.TraderName{
+    text-align: center;
+    color: #fff;
+    font-style: italic;
+    background: #7a6451;
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 1px 1px 0 0;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 800px) {
+    .Trader-speech-box    {
+        font-size: 2vw;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .trader-area {
+        min-width: 20%;
+        max-width: 25%;
+    }
+
+    .bubble {
+        left: 10%;
+        height: 60px;
+        min-width: 100px;
+        top: -63px;
+        font-size: 2vw;
+        padding: 20px;
+    }
+}
