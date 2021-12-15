@@ -1,5 +1,7 @@
 .content-wrapper {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .children-container-wrapper {

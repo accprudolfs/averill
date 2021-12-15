@@ -2,6 +2,8 @@ import React from 'react'
 import { useLogoutMutation } from '../../store/services.js'
 import Spinner from '../auth/Spinner.jsx'
 import ErrorMessage from '../Error/Error.jsx'
+import GameText from '../GameText/GameText.jsx'
+import GameButton from '../HoverImageBlock/GameButton.jsx'
 
 export default function LogoutBtn() {
   const [logoutTrigger, { isError, isLoading }] = useLogoutMutation()
@@ -15,13 +17,11 @@ export default function LogoutBtn() {
       {isLoading ? (
         <Spinner height={4} width={4} />
       ) : (
-        <button
-          type="button"
-          onClick={handleLogout}
-          className="hover:opacity-50 focus:opacity-50"
-        >
-          Logout
-        </button>
+        <GameButton>
+          <button type="button" onClick={handleLogout}>
+            <GameText>Logout</GameText>
+          </button>
+        </GameButton>
       )}
       {isError && <ErrorMessage name="Logout" visible />}
     </>

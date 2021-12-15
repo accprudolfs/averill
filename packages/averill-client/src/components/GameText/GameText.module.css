@@ -1,0 +1,10 @@
+@font-face {
+  font-family: Passion One;
+  src: url('font/PassionOne-Regular.ttf');
+}
+
+.text {
+  font-family: 'Passion One', cursive;
+  font-size: 14pt;
+  color: #d0af2a;
+}
