@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useLoginMutation } from '../../store/services.js'
 import Spinner from './Spinner.jsx'
 import Button from './button.jsx'
 
 export default function Login() {
+  const navigate = useNavigate()
   const [formValues, setFormValues] = useState({
     name: '',
     email: '',
@@ -34,7 +36,11 @@ export default function Login() {
 
   const login = async payload => {
     try {
-      await loginTrigger(payload)
+      const res = await loginTrigger(payload)
+      if (res?.data?.status === 'success') {
+        navigate('/myfarm')
+      }
+      console.log(res.data.status)
     } catch (e) {
       console.error(error)
     }

@@ -1,24 +1,12 @@
 import { setPlantInHand } from '../../../store/slices/shop'
-// But Plant , add id to state TODO now trader just say plant id
-async function buyPlant(plantId, index, setSpeech, dispatch) {
-  // Highliting selected PLANT
-  const traderSpeech = document.getElementById('traderSpeech')
-  const el = document.getElementsByClassName('Shop-product-price')
-  const elParent = document.getElementsByClassName('Shop-cell-inner')
-  // Remove Highliting from all divs
-  for (let i = 0; i < el.length; i++) {
-    el[i].classList.remove('highlighted')
-    elParent[i].classList.remove('highlightedCell')
-  }
-  // Add Highliting
-  el[index].classList.add('highlighted')
-  elParent[index].classList.add('highlightedCell')
-  traderSpeech.style.display = 'block'
-  setSpeech(`${plantId} - Nice Choise`)
+function buyPlant(plantId, dispatch, props) {
   try {
     dispatch(setPlantInHand(plantId))
+    props.setDialogState(true)
+    props.setSpeech(`${plantId} - Nice Choise`)
   } catch (e) {
-    // TODO
+    // TODO JS LINT ERR.
+    // console.log(e)
   }
 }
 
