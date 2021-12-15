@@ -1,0 +1,15 @@
+.content-wrapper {
+  position: relative;
+}
+
+.children-container-wrapper {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+}
+
+.children-container {
+  margin: auto;
+}
