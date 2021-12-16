@@ -24,7 +24,7 @@ export default function NavBar() {
   return (
     <div className="flex justify-between items-center px-10 bg-light-bg-green">
       <Logo />
-      <nav className="flex h-16 space-x-10">
+      <nav className="flex">
         {isLoggedIn ? (
           <>
             {loggedInNavItems.map(
